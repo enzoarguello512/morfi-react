@@ -4,7 +4,11 @@ import { setCredentials, logOut } from 'features/auth/authSlice';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import config from 'config';
 
-const domain: string = config.BACKEND_DOMAIN;
+let domain: string = config.BACKEND_DOMAIN;
+
+if (process.env.NODE_ENV === 'development') {
+  domain = `http://${config.BACKEND_DOMAIN}:${config.BACKEND_PORT}`;
+}
 
 const baseQuery = fetchBaseQuery({
   baseUrl: domain,

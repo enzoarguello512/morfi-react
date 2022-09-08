@@ -5,6 +5,5 @@ const config = {
   BACKEND_DOMAIN: process.env.REACT_APP_BACKEND_DOMAIN || '0.0.0.0',
   BACKEND_PORT: process.env.REACT_APP_BACKEND_PORT || '8080',
 };
-console.log(config);
 
 export default config;
