@@ -1,101 +1,159 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const SignupForm = () => {
+  const errRef = useRef();
+
+  const [formValues, setFormValues] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    month: '',
+    day: '',
+    year: '',
+  });
+  const { name, lastName, email, password, month, day, year } = formValues;
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    Object.entries(formValues).forEach((formElement) => {
+      formData.append(formElement[0], formElement[1]);
+    });
+
+    try {
+      toast.success('Successful registration');
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   return (
     <form
       className="row g-3 needs-validation p-3 register-w-50 m-auto bg-white border border-2 rounded"
-      noValidate
+      onSubmit={handleSubmit}
     >
-      {/* f-fname */}
+      {/* first name */}
       <div className="col-sm-6">
-        <label htmlFor="fname-i" className="form-label">
+        <label htmlFor="name" className="form-label">
           First name
         </label>
         <input
           type="text"
           className="form-control"
-          id="fname-i"
-          placeholder="first name"
-          aria-describedby="fname-i-feedback"
+          id="name"
+          autoComplete="off"
+          onChange={handleChange}
+          value={name}
+          placeholder="First name"
+          aria-describedby="name-feedback"
           required
+          maxLength={20}
+          autoFocus={true}
+          name="name"
         />
-        <div id="fname-i-feedback" className="invalid-feedback">
-          Please complete your first name
-        </div>
       </div>
-      {/* f-fname */}
+      <div id="name-feedback" className="invalid-feedback">
+        Please complete your first name
+      </div>
+      {/* first name */}
 
-      {/* f-lname */}
+      {/* last name */}
       <div className="col-sm-6">
-        <label htmlFor="lname-i" className="form-label">
+        <label htmlFor="lastName" className="form-label">
           Last name
         </label>
         <input
           type="text"
           className="form-control"
-          id="lname-i"
-          placeholder="last name"
-          aria-describedby="lname-i-feedback"
+          id="lastName"
+          autoComplete="off"
+          onChange={handleChange}
+          value={lastName}
+          placeholder="Last name"
+          aria-describedby="lastName-feedback"
           required
+          maxLength={20}
+          name="lastName"
         />
-        <div id="lname-i-feedback" className="invalid-feedback">
+        <div id="lastName-feedback" className="invalid-feedback">
           Please complete your last name
         </div>
       </div>
-      {/* f-lname */}
+      {/* last name */}
 
-      {/* f-email */}
+      {/* email */}
       <div className="col-sm-12">
-        <label htmlFor="email-i" className="form-label">
+        <label htmlFor="email" className="form-label">
           Email
         </label>
         <input
           type="email"
           className="form-control"
-          id="email-i"
-          placeholder="email@domain.com"
-          aria-describedby="email-i-feedback"
+          id="email"
+          onChange={handleChange}
+          value={email}
+          placeholder="Email@domain.com"
+          aria-describedby="email-feedback"
           autoComplete="email"
           required
+          maxLength={50}
+          name="email"
         />
-        <div id="email-i-feedback" className="invalid-feedback">
+        <div id="email-feedback" className="invalid-feedback">
           Please choose a valid email.
         </div>
       </div>
-      {/* f-email */}
+      {/* email */}
 
-      {/* f-password */}
+      {/* password */}
       <div className="col-sm-12">
-        <label htmlFor="password-i" className="form-label">
+        <label htmlFor="password" className="form-label">
           Password
         </label>
         <input
           type="password"
           className="form-control"
-          id="password-i"
-          placeholder="password"
-          aria-describedby="password-i-feedback"
+          id="password"
+          onChange={handleChange}
+          value={password}
+          placeholder="Password"
+          aria-describedby="password-feedback"
           autoComplete="current-password"
           required
+          name="password"
         />
-        <div id="password-i-feedback" className="invalid-feedback">
+        <div id="password-feedback" className="invalid-feedback">
           Please provide a valid password
         </div>
       </div>
-      {/* f-password */}
+      {/* password */}
 
-      {/* f-birthday */}
+      {/* birthday */}
       <div className="col-12">
         <div className="row">
-          <label htmlFor="d-month" className="form-label">
+          <label htmlFor="month" className="form-label">
             Date of birth
           </label>
           <div className="col-12 col-sm-6">
             <select
               className="form-select"
-              name="d-month"
-              id="d-month"
-              aria-describedby="d-month-feedback"
+              name="month"
+              id="month"
+              onChange={handleChange}
+              aria-describedby="month-feedback"
               required
               defaultValue="January"
             >
@@ -112,47 +170,51 @@ const SignupForm = () => {
               <option value="November">November</option>
               <option value="December">December</option>
             </select>
-            <div id="d-month-feedback" className="invalid-feedback">
+            <div id="month-feedback" className="invalid-feedback">
               Please select a valid month.
             </div>
           </div>
           <div className="col-12 col-sm-3">
-            <label className="visually-hidden" htmlFor="d-day">
+            <label className="visually-hidden" htmlFor="day">
               birthday
             </label>
             <input
-              type="number"
+              type="text"
               className="form-control"
-              id="d-day"
+              name="day"
+              id="day"
+              onChange={handleChange}
               placeholder="day"
-              aria-describedby="d-day-feedback"
+              aria-describedby="day-feedback"
               required
             />
-            <div id="d-day-feedback" className="invalid-feedback">
+            <div id="day-feedback" className="invalid-feedback">
               Please provide a valid day
             </div>
           </div>
           <div className="col-12 col-sm-3">
-            <label className="visually-hidden" htmlFor="d-year">
-              birth-month
+            <label className="visually-hidden" htmlFor="year">
+              birth month
             </label>
             <input
-              type="number"
+              type="text"
               className="form-control"
-              id="d-year"
+              name="year"
+              id="year"
+              onChange={handleChange}
               placeholder="year"
-              aria-describedby="d-year-feedback"
+              aria-describedby="year-feedback"
               required
             />
-            <div id="d-year-feedback" className="invalid-feedback">
+            <div id="year-feedback" className="invalid-feedback">
               Please provide a valid year
             </div>
           </div>
         </div>
       </div>
-      {/* f-birthday */}
+      {/* birthday */}
 
-      {/* f-newsletter */}
+      {/* newsletter */}
       <div className="col-md-12">
         <div className="form-check form-switch mt-2">
           <input
@@ -166,9 +228,9 @@ const SignupForm = () => {
           </label>
         </div>
       </div>
-      {/* f-newsletter */}
+      {/* newsletter */}
 
-      {/* f-terms */}
+      {/* terms */}
       <div className="col-md-12">
         <div className="form-check mb-3">
           <input
@@ -179,17 +241,17 @@ const SignupForm = () => {
             required
           />
           <label className="form-check-label" htmlFor="terms-c">
-            I have read and agree with the <Link to="#">Terms of Service</Link>
-            and <Link to="#">Privacy Notice</Link>
+            I have read and agree with the <Link to="/">Terms of Service </Link>
+            and <Link to="/">Privacy Notice</Link>
           </label>
           <div id="terms-c-feedback" className="invalid-feedback">
             Please agree the terms to continue
           </div>
         </div>
       </div>
-      {/* f-terms */}
+      {/* terms */}
 
-      {/* f-sign-up-btn */}
+      {/* sign up btn */}
       <div className="col-12">
         <button className="btn btn-primary d-block mx-auto w-50">
           Sign up
@@ -198,7 +260,7 @@ const SignupForm = () => {
           Have an account? <Link to="/login">Log in</Link>
         </span>
       </div>
-      {/* f-sign-up-btn */}
+      {/* sign up btn */}
     </form>
   );
 };
