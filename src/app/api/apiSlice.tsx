@@ -2,9 +2,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { TRootState } from 'app/store';
 import { setCredentials, logOut } from 'features/auth/authSlice';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
+import config from 'config';
+
+const domain: string = config.BACKEND_DOMAIN;
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8080',
+  baseUrl: domain,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as TRootState).auth.token;
