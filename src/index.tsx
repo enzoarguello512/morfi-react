@@ -12,6 +12,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { productApiSlice } from 'features/products/productsApiSlice';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // @ts-ignore
 store.dispatch(productApiSlice.endpoints.list.initiate());
 
@@ -25,6 +28,18 @@ root.render(
         <Routes>
           <Route path="/*" element={<App />} />
         </Routes>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnHover
+          limit={3}
+          theme="colored"
+          role="assertive"
+        />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
