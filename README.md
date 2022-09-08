@@ -1,6 +1,22 @@
-# morfi-react
 
-React version of The Morfi
+<p align="center">
+  <a href="https://morfi.vercel.app/">
+    <img src="https://i.imgur.com/cDNjn1M.png" alt="The Morfi logo" height="100">
+  </a>
+</p>
+
+# The Morfi (React version)
+A simple website that tries to imitate the behavior of a food franchise with restaurants all over the United States
+
+It is a project only with the intention of learning and improving skills, the entire page is pure fiction and most of the resources used in it are taken from other pages (in the credits section I try to mention all the ones I remember)
+
+<strong>Active deployments</strong>
+* [Vercel](https://morfi-react.vercel.app/) (full)
+
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/75096734/189104699-d999eed6-a663-4952-8964-ff1ef6277717.png" alt="The Morfi SPA" height="500">
+</p>
+
 
 ## Getting Started with Create React App
 
