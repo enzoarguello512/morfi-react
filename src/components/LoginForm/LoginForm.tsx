@@ -30,7 +30,7 @@ const LoginForm = () => {
     } catch (err) {
       let message = 'No Server Response';
       if (err.status === 400) {
-        message = err?.data?.message || 'Bad Request';
+        message = err.data?.message || 'Bad Request';
         toast.error(message);
       } else {
         toast.error(message);
