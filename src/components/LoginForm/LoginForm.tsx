@@ -1,20 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { setCredentials } from 'features/auth/authSlice';
 import { useLoginMutation } from 'features/auth/authApiSlice';
-
-import jwtDecode, { JwtPayload } from 'jwt-decode';
-import { IUser } from 'common/types/user.interface';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
-  const emailRef = useRef();
-  const errRef = useRef();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   // @ts-ignore
@@ -23,44 +18,23 @@ const LoginForm = () => {
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    //@ts-ignore
-    emailRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [email, password]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const payload = await login({ email, password }).unwrap();
-      // @ts-ignore
-      const decodedUser: IUser = jwtDecode<JwtPayload>(payload?.accessToken);
-      const user: IUser = {
-        email: decodedUser.email,
-        firstName: decodedUser.firstName,
-        permissionLevel: decodedUser.permissionLevel,
-      };
-      dispatch(setCredentials({ ...payload, user }));
+      dispatch(setCredentials({ ...payload }));
       setEmail('');
       setPassword('');
       navigate(from, { replace: true });
     } catch (err) {
-      if (!err?.originalStatus) {
-        // isLoading: true until timeout occurs
-        setErrMsg('No Server Response');
-      } else if (err.originalStatus === 400) {
-        setErrMsg('Missing Email or Password');
-      } else if (err.originalStatus === 401) {
-        setErrMsg('Unauthorized');
+      let message = 'No Server Response';
+      if (err.status === 400) {
+        message = err?.data?.message || 'Bad Request';
+        toast.error(message);
       } else {
-        setErrMsg('Login Failed');
+        toast.error(message);
       }
-      //@ts-ignore
-      errRef.current.focus();
     }
   };
 
@@ -74,16 +48,7 @@ const LoginForm = () => {
     </div>
   ) : (
     <form className="row needs-validation p-2 p-sm-3" onSubmit={handleSubmit}>
-      <div className={errMsg ? 'col-md-11 mx-auto mb-3' : 'd-none'}>
-        <p
-          ref={errRef}
-          className="bg-warning text-dark fw-bold p-2 rounded m-0 text-center"
-          aria-live="assertive"
-        >
-          {errMsg}
-        </p>
-      </div>
-      {/* f-email */}
+      {/* email */}
       <div className="col-md-11 mx-auto mb-3">
         <label htmlFor="email" className="form-label">
           Email
@@ -91,18 +56,20 @@ const LoginForm = () => {
         <input
           type="email"
           className="form-control"
-          placeholder="email@domain.com"
+          placeholder="Email@domain.com"
           id="email"
-          ref={emailRef}
+          autoFocus={true}
           value={email}
           onChange={handleEmailInput}
           autoComplete="email"
           required
+          maxLength={50}
+          name="email"
         />
       </div>
-      {/* f-email */}
+      {/* email */}
 
-      {/* f-password */}
+      {/* password */}
       <div className="col-md-11 mx-auto mb-3">
         <label htmlFor="password" className="form-label">
           Password
@@ -110,17 +77,18 @@ const LoginForm = () => {
         <input
           type="password"
           className="form-control"
-          placeholder="password"
+          placeholder="Password"
           id="password"
           onChange={handlePasswordInput}
           value={password}
           autoComplete="current-password"
           required
+          name="password"
         />
       </div>
-      {/* f-password */}
+      {/* password */}
 
-      {/* f-login-btn */}
+      {/* login btn */}
       <div className="col-12 mb-3">
         <button className="btn btn-success d-block mx-auto login-w-50">
           Log in
@@ -129,7 +97,7 @@ const LoginForm = () => {
           Don't have an account? <Link to="/signup">Sign up</Link>
         </span>
       </div>
-      {/* f-login-btn */}
+      {/* login btn */}
     </form>
   );
 
