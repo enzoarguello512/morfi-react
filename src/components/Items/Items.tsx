@@ -1,5 +1,5 @@
 import { IProduct } from 'common/types/product.interface';
-import Product from 'components/Product/Product';
+import ProductPreview from 'components/ProductPreview/Product';
 import { selectAllProducts } from 'features/products/productsApiSlice';
 import { useSelector } from 'react-redux';
 
@@ -17,7 +17,7 @@ const Items = () => {
       ) : (
         <ul className="list-unstyled ps-3">
           {products.map((product: IProduct) => (
-            <Product product={product} key={product.id} />
+            <ProductPreview product={product} key={product.id} />
           ))}
         </ul>
       )}

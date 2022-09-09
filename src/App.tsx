@@ -20,6 +20,7 @@ import Chat from './pages/Chat/Chat';
 import Shop from './pages/Shop/Shop';
 import RequireAuth from 'components/RequireAuth/RequireAuth';
 import { ERoles } from 'common/types/common.roles.enum';
+import Product from 'pages/Product/Product';
 //import PersistLogin from 'components/PersistLogin/PersistLogin';
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
       <Route element={<RequireAuth allowedRoles={ERoles.FREE} />}>
         <Route path="chat" element={<Chat />} />
       </Route>
+
+      <Route path="product/:productId" element={<Product />} />
 
       {/* Catch all - replace with 404 component if you want */}
       <Route path="*" element={<Navigate to="/" replace />} />
