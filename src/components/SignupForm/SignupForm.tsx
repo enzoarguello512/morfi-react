@@ -1,42 +1,56 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useLoginMutation } from 'features/auth/authApiSlice';
+import { setCredentials } from 'features/auth/authSlice';
+import { useSignupMutation } from 'features/user/userApiSlice';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const SignupForm = () => {
-  const errRef = useRef();
+  const [signup, { isLoading }] = useSignupMutation();
+  const [login] = useLoginMutation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
-    name: '',
+    firstName: '',
     lastName: '',
     email: '',
     password: '',
-    month: '',
-    day: '',
-    year: '',
   });
-  const { name, lastName, email, password, month, day, year } = formValues;
+  const { firstName, lastName, email, password } = formValues;
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    Object.entries(formValues).forEach((formElement) => {
-      formData.append(formElement[0], formElement[1]);
-    });
-
     try {
+      await signup(formValues).unwrap();
       toast.success('Successful registration');
+      const payload = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...payload }));
+      setFormValues({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+      });
+      navigate('/');
     } catch (err) {
-      toast.error(err.message);
+      let message = 'No Server Response';
+      if (err.status === 400) {
+        message = err?.data?.message || 'Bad Request';
+        toast.error(message);
+      } else {
+        toast.error(message);
+      }
     }
   };
 
@@ -47,25 +61,25 @@ const SignupForm = () => {
     >
       {/* first name */}
       <div className="col-sm-6">
-        <label htmlFor="name" className="form-label">
+        <label htmlFor="firstName" className="form-label">
           First name
         </label>
         <input
           type="text"
           className="form-control"
-          id="name"
+          id="firstName"
           autoComplete="off"
           onChange={handleChange}
-          value={name}
+          value={firstName}
           placeholder="First name"
-          aria-describedby="name-feedback"
+          aria-describedby="firstName-feedback"
           required
           maxLength={20}
           autoFocus={true}
-          name="name"
+          name="firstName"
         />
       </div>
-      <div id="name-feedback" className="invalid-feedback">
+      <div id="firstName-feedback" className="invalid-feedback">
         Please complete your first name
       </div>
       {/* first name */}
@@ -141,79 +155,6 @@ const SignupForm = () => {
       </div>
       {/* password */}
 
-      {/* birthday */}
-      <div className="col-12">
-        <div className="row">
-          <label htmlFor="month" className="form-label">
-            Date of birth
-          </label>
-          <div className="col-12 col-sm-6">
-            <select
-              className="form-select"
-              name="month"
-              id="month"
-              onChange={handleChange}
-              aria-describedby="month-feedback"
-              required
-              defaultValue="January"
-            >
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
-            <div id="month-feedback" className="invalid-feedback">
-              Please select a valid month.
-            </div>
-          </div>
-          <div className="col-12 col-sm-3">
-            <label className="visually-hidden" htmlFor="day">
-              birthday
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              name="day"
-              id="day"
-              onChange={handleChange}
-              placeholder="day"
-              aria-describedby="day-feedback"
-              required
-            />
-            <div id="day-feedback" className="invalid-feedback">
-              Please provide a valid day
-            </div>
-          </div>
-          <div className="col-12 col-sm-3">
-            <label className="visually-hidden" htmlFor="year">
-              birth month
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              name="year"
-              id="year"
-              onChange={handleChange}
-              placeholder="year"
-              aria-describedby="year-feedback"
-              required
-            />
-            <div id="year-feedback" className="invalid-feedback">
-              Please provide a valid year
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* birthday */}
-
       {/* newsletter */}
       <div className="col-md-12">
         <div className="form-check form-switch mt-2">
@@ -253,8 +194,19 @@ const SignupForm = () => {
 
       {/* sign up btn */}
       <div className="col-12">
-        <button className="btn btn-primary d-block mx-auto w-50">
-          Sign up
+        <button
+          className="btn btn-primary d-block mx-auto w-50"
+          disabled={
+            !firstName || !lastName || !email || !password ? true : false
+          }
+        >
+          {isLoading ? (
+            <div className="spinner-border text-center fs-1" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            'Sign up'
+          )}
         </button>
         <span className="d-block mt-4 text-center">
           Have an account? <Link to="/login">Log in</Link>
