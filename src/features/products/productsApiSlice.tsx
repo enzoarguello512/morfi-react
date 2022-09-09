@@ -15,10 +15,11 @@ export const productApiSlice = apiSlice.injectEndpoints({
         return productsAdapter.setAll(initialState, responseData);
       },
       query: () => '/products',
-      //providesTags: (result, error, arg) => [
-      //...result.ids.map((id: string) => ({ type: 'Product', id })),
-      //{ type: 'Product', id: 'LIST' },
-      //],
+      // @ts-ignore
+      providesTags: (result, error, arg) => [
+        { type: 'Product', id: 'LIST' },
+        ...result.ids.map((id: string) => ({ type: 'Product', id })),
+      ],
     }),
   }),
 });
