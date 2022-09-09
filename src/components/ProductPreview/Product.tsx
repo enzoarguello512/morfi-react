@@ -2,7 +2,7 @@ import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
-const Product = ({ product }) => {
+const ProductPreview = ({ product }) => {
   const promotions =
     product.discount || product.promotion ? (
       <div className="text-break text-truncate-1">
@@ -73,4 +73,4 @@ const Product = ({ product }) => {
   );
 };
 
-export default Product;
+export default ProductPreview;
