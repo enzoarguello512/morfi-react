@@ -47,7 +47,7 @@ const ProductPreview = ({ product }) => {
           </h5>
           <div className="overflow-hidden text-truncate-2">
             <div className="ff-mont-6 text-truncate-1">
-              <span>${product.discountedPrice}</span>
+              <span>${product.discountedPrice.toFixed(2)}</span>
               {product.hasFreeShipping && (
                 <span className="badge bg-white rounded text-green-5">
                   <span className="visually-hidden">Free shipping</span>

@@ -11,7 +11,7 @@ const ProductDetails = () => {
   // @ts-ignore
   const { isLoading } = useListQuery();
   const { productId } = useParams();
-  let [count, setCount] = useState(0);
+  let [count, setCount] = useState(1);
 
   const product = useSelector((state: TRootState) =>
     selectProductById(state, String(productId))
@@ -36,7 +36,7 @@ const ProductDetails = () => {
       if (value === '' || value === 0) value = 1;
       setCount(parseInt(value));
     } else {
-      setCount(0);
+      setCount(1);
     }
   };
 
@@ -68,7 +68,7 @@ const ProductDetails = () => {
         <div className="bg-light">
           <p className="border-bottom fs-3 fw-bold p-3">{product.name}</p>
           <p className="border-bottom pb-3 px-3">
-            Price: ${product.discountedPrice}
+            Price: ${product.discountedPrice.toFixed(2)}
           </p>
           <p className="pb-3 px-3">Description: {product.description}</p>
         </div>
@@ -79,7 +79,9 @@ const ProductDetails = () => {
           <div className="border-bottom">
             <p className="p-3 row mb-0">
               <span className="col-6">Price:</span>
-              <span className="col-6">${product.discountedPrice}</span>
+              <span className="col-6">
+                ${(product.discountedPrice * count).toFixed(2)}
+              </span>
             </p>
           </div>
           <div className="border-bottom">
