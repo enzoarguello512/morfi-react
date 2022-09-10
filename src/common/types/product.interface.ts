@@ -5,7 +5,8 @@ export interface IProduct {
   productCode?: number;
   imageUrl?: string;
   hasFreeShipping?: boolean;
-  discount?: number;
+  discount: number;
+  discountedPrice: number;
   promotion?: Array<string>;
   categories?: Array<string>;
   region?: Array<string>;
