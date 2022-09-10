@@ -21,6 +21,7 @@ import Shop from './pages/Shop/Shop';
 import RequireAuth from 'components/RequireAuth/RequireAuth';
 import { ERoles } from 'common/types/common.roles.enum';
 import Product from 'pages/Product/Product';
+import Cart from 'pages/Cart/Cart';
 //import PersistLogin from 'components/PersistLogin/PersistLogin';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
       {/* protected routes */}
       <Route element={<RequireAuth allowedRoles={ERoles.FREE} />}>
         <Route path="chat" element={<Chat />} />
+        <Route path="cart" element={<Cart />} />
       </Route>
 
       <Route path="product/:productId" element={<Product />} />
