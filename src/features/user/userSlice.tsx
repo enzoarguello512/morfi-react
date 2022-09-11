@@ -8,8 +8,8 @@ const initialState: IUserState = {
   token: null,
 };
 
-const authSlice = createSlice({
-  name: 'auth',
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     setCredentials: (state, action) => {
@@ -17,9 +17,11 @@ const authSlice = createSlice({
       // @ts-ignore
       const decodedUser: IUser = jwtDecode<JwtPayload>(accessToken);
       const user: IUser = {
+        id: decodedUser.id,
         email: decodedUser.email,
         firstName: decodedUser.firstName,
         permissionLevel: decodedUser.permissionLevel,
+        cart: decodedUser?.cart,
       };
       state.user = user;
       state.token = accessToken;
@@ -31,9 +33,9 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut } = userSlice.actions;
 
-export default authSlice.reducer;
+export default userSlice.reducer;
 
-export const selectCurrentUser = (state: TRootState) => state.auth.user;
-export const selectCurrentToken = (state: TRootState) => state.auth.token;
+export const selectCurrentUser = (state: TRootState) => state.user.user;
+export const selectCurrentToken = (state: TRootState) => state.user.token;
