@@ -28,6 +28,18 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
+    maybeAddToCart: builder.mutation({
+      query: ({ userId, productId, quantity }) => ({
+        url: `/cart/${userId}/${productId}/${quantity}`,
+        method: 'POST',
+      }),
+    }),
+    //addToCart: builder.mutation({
+    //query: ({ cartId, productId, quantity }) => ({
+    //url: `/cart/${cartId}/products/${productId}/${quantity}`,
+    //method: 'POST',
+    //}),
+    //}),
   }),
 });
 
@@ -36,4 +48,5 @@ export const {
   useLogoutMutation,
   useSignupMutation,
   useRefreshMutation,
+  useMaybeAddToCartMutation,
 } = userApiSlice;

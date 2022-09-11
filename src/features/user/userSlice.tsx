@@ -30,12 +30,17 @@ const userSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    setCart: (state, action) => {
+      state.user.cart = action.payload.data.cart;
+    },
   },
 });
 
-export const { setCredentials, logOut } = userSlice.actions;
+export const { setCredentials, logOut, setCart } = userSlice.actions;
 
 export default userSlice.reducer;
 
 export const selectCurrentUser = (state: TRootState) => state.user.user;
+export const selectProducsInCart = (state: TRootState) =>
+  state.user.user.cart.products;
 export const selectCurrentToken = (state: TRootState) => state.user.token;
