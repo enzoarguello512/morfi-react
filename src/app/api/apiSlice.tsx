@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { TRootState } from 'app/store';
-import { setCredentials, logOut } from 'features/auth/authSlice';
+import { setCredentials, logOut } from 'features/user/userSlice';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import config from 'config';
 
@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: domain,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as TRootState).auth.token;
+    const token = (getState() as TRootState).user.token;
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
@@ -34,7 +34,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       extraOptions
     );
     if (refreshResult?.data) {
-      const user = api.getState().auth.user;
+      const user = api.getState().user.user;
       // @ts-ignore
       const decodedUser = user
         ? //@ts-ignore

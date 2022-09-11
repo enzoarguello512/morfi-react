@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut, selectCurrentUser } from 'features/auth/authSlice';
+import { logOut, selectCurrentUser } from 'features/user/userSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAngleDown,
@@ -9,7 +9,7 @@ import {
   faShoppingCart,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { useLogoutMutation } from 'features/auth/authApiSlice';
+import { useLogoutMutation } from 'features/user/userApiSlice';
 
 const Navbar = () => {
   const user = useSelector(selectCurrentUser);
@@ -167,7 +167,7 @@ const Navbar = () => {
                 <Link className="text-dark" to="/cart">
                   <FontAwesomeIcon icon={faShoppingCart} className="fs-4" />
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary h-pointer">
-                    <span>0</span>
+                    <span>{user.cart ? user.cart.products.length : 0}</span>
                     <span className="visually-hidden">cart</span>
                   </span>
                 </Link>

@@ -1,5 +1,5 @@
-import { useLoginMutation } from 'features/auth/authApiSlice';
-import { setCredentials } from 'features/auth/authSlice';
+import { useLoginMutation } from 'features/user/userApiSlice';
+import { setCredentials } from 'features/user/userSlice';
 import { useSignupMutation } from 'features/user/userApiSlice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';

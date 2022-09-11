@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
 const CartItem = ({ product }) => {
-  let [count, setCount] = useState(1);
+  const [count, setCount] = useState(1);
 
   const countHandler = (action) => {
     if (count < product.stock && action === 'add') {

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { setCredentials } from 'features/auth/authSlice';
-import { useLoginMutation } from 'features/auth/authApiSlice';
+import { setCredentials } from 'features/user/userSlice';
+import { useLoginMutation } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
 
 const LoginForm = () => {

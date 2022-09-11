@@ -1,6 +1,6 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectCurrentToken, selectCurrentUser } from 'features/auth/authSlice';
+import { selectCurrentToken, selectCurrentUser } from 'features/user/userSlice';
 
 const RequireAuth = ({ allowedRoles }) => {
   const user = useSelector(selectCurrentUser);
