@@ -1,19 +1,19 @@
-import { IProduct } from 'common/types/product.interface';
 import CartItem from 'components/CartItem/CartItem';
 import React from 'react';
 
-const CartItemsContainer = ({ products }) => {
+const CartItemsContainer = ({ productsData }) => {
   return (
     <React.Fragment>
-      {!products.length ? (
+      {!productsData.length ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-grow text-secondary my-2" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       ) : (
-        products.map((product: IProduct) => (
-          <CartItem product={product} key={product.id} />
+        productsData.map((productData) => (
+          // @ts-ignore
+          <CartItem productData={productData} key={productData.data.id} />
         ))
       )}
     </React.Fragment>

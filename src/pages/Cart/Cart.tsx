@@ -3,18 +3,18 @@ import Footer from 'components/Footer/Footer';
 import React from 'react';
 import CartItemsContainer from 'components/CartItemsContainer/CartItemsContainer';
 import { useSelector } from 'react-redux';
-import { selectAllProducts } from 'features/products/productsApiSlice';
 import { Link } from 'react-router-dom';
+import { selectProducsInCart } from 'features/user/userSlice';
 
 const Cart = () => {
-  const products = useSelector(selectAllProducts);
+  const productsData = useSelector(selectProducsInCart);
 
   return (
     <React.Fragment>
       <Navbar />
       <main className="mt-11 ff-lato-4">
         <section className="container-xxl my-4 ff-lato-4 min-h-400px">
-          {!products ? (
+          {!productsData ? (
             <div className="text-center py-5 border shadow rounded">
               <h2 className="mt-4 p-2 fs-4">It seems that the cart is empty</h2>
               <p className="fs-4 fw-bold my-3">¯\_(ツ)_/¯</p>
@@ -28,7 +28,7 @@ const Cart = () => {
                 <h2 className="fw-bold py-3 text-center text-lg-start">
                   Shopping Cart
                 </h2>
-                <CartItemsContainer products={products} />
+                <CartItemsContainer productsData={productsData} />
               </div>
               <div className="col-10 col-sm-8 col-md-6 col-lg-3">
                 <div className="boder shadow text-center text-lg-start">

@@ -2,8 +2,9 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
-const CartItem = ({ product }) => {
-  const [count, setCount] = useState(1);
+const CartItem = ({ productData }) => {
+  const { data: product, quantity } = productData;
+  const [count, setCount] = useState(quantity);
 
   const countHandler = (action) => {
     if (count < product.stock && action === 'add') {
@@ -79,7 +80,7 @@ const CartItem = ({ product }) => {
           </div>
         </div>
         <div className="col-12 col-sm-6 col-md-2 fw-bold fs-5 order-1 order-md-0 text-center text-md-end my-0 my-sm-3 my-md-0">
-          ${product.discountedPrice.toFixed(2)}
+          ${(product.discountedPrice * count).toFixed(2)}
         </div>
       </div>
     </div>

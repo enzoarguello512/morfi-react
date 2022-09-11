@@ -1,21 +1,52 @@
 import { TRootState } from 'app/store';
+import { selectCurrentUser, setCart } from 'features/user/userSlice';
 import {
   selectProductById,
   useListQuery,
 } from 'features/products/productsApiSlice';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useMaybeAddToCartMutation } from 'features/user/userApiSlice';
+import { toast } from 'react-toastify';
 
 const ProductDetails = () => {
   // @ts-ignore
-  const { isLoading } = useListQuery();
+  const { isLoading: isQueryLoading } = useListQuery();
   const { productId } = useParams();
-  let [count, setCount] = useState(1);
+  const [count, setCount] = useState(1);
+  const user = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
+  const [addToCart, { isLoading }] = useMaybeAddToCartMutation();
 
   const product = useSelector((state: TRootState) =>
     selectProductById(state, String(productId))
   );
+
+  const handleAddToCart = async () => {
+    if (user) {
+      try {
+        const payload = await addToCart({
+          userId: user.id,
+          productId,
+          quantity: count,
+        });
+        dispatch(setCart({ ...payload }));
+        //navigate('/cart');
+      } catch (err) {
+        let message = 'No Server Response';
+        if (err.status === 400) {
+          message = err.data?.message || 'Bad Request';
+          toast.error(message);
+        } else {
+          toast.error(message);
+        }
+      }
+    } else {
+      // TODO: Fix this!!! add navigate
+      //navigate("/login")
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,7 +71,7 @@ const ProductDetails = () => {
     }
   };
 
-  if (!product && !isLoading) {
+  if (!product && !isQueryLoading) {
     return (
       <section>
         <h2>Product not found!</h2>
@@ -48,7 +79,7 @@ const ProductDetails = () => {
     );
   }
 
-  return isLoading ? (
+  return isQueryLoading ? (
     <div className="d-flex justify-content-center align-items-center min-h-400px">
       <div className="spinner-border text-center" role="status">
         <span className="visually-hidden">Loading...</span>
@@ -93,7 +124,7 @@ const ProductDetails = () => {
             </p>
           </div>
           <div className="border-bottom">
-            <p className="p-3 mb-0">
+            <div className="p-3 mb-0">
               <div className="d-flex flex-column justify-content-center align-items-center h-100">
                 <div className="text-center">
                   <span className="text-green-5 fw-bold">Quantity:</span>
@@ -124,10 +155,16 @@ const ProductDetails = () => {
                   <span className="text-muted">{product.stock} available</span>
                 </div>
               </div>
-            </p>
+            </div>
           </div>
+          {/*TODO: Add loading icon */}
           <p className="p-3 text-center mb-0">
-            <button className="btn btn-success w-75" type="button">
+            <button
+              className="btn btn-success w-75"
+              type="button"
+              onClick={handleAddToCart}
+              disabled={isLoading ? true : false}
+            >
               Add To Cart
             </button>
           </p>
