@@ -24,10 +24,17 @@ const userSlice = createSlice({
     setCart: (state, action) => {
       state.user.cart = action.payload;
     },
+    removeCartProduct: (state, action) => {
+      const newProducts = state.user.cart.products.filter(
+        (productData) => productData.data.id !== action.payload // product id
+      );
+      state.user.cart.products = newProducts;
+    },
   },
 });
 
-export const { setCredentials, logOut, setCart } = userSlice.actions;
+export const { setCredentials, logOut, setCart, removeCartProduct } =
+  userSlice.actions;
 
 export default userSlice.reducer;
 

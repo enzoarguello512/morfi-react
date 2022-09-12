@@ -32,7 +32,7 @@ const ProductDetails = () => {
           quantity: count,
         });
         // @ts-ignore
-        dispatch(setCart(payload.data.cart));
+        dispatch(setCart(payload.data));
         //navigate('/cart');
       } catch (err) {
         let message = 'No Server Response';
