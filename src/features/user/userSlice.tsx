@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TRootState } from 'app/store';
-import { IUser, IUserState } from 'common/types/user.interface';
-import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { IUserState } from 'common/types/user.interface';
+import { decryptJwt } from 'util/decryptJwt';
 
 const initialState: IUserState = {
   user: null,
@@ -14,16 +14,7 @@ const userSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       const { accessToken } = action.payload;
-      // @ts-ignore
-      const decodedUser: IUser = jwtDecode<JwtPayload>(accessToken);
-      const user: IUser = {
-        id: decodedUser.id,
-        email: decodedUser.email,
-        firstName: decodedUser.firstName,
-        permissionLevel: decodedUser.permissionLevel,
-        cart: decodedUser?.cart,
-      };
-      state.user = user;
+      state.user = decryptJwt(accessToken);
       state.token = accessToken;
     },
     logOut: (state) => {
@@ -31,7 +22,7 @@ const userSlice = createSlice({
       state.token = null;
     },
     setCart: (state, action) => {
-      state.user.cart = action.payload.data.cart;
+      state.user.cart = action.payload;
     },
   },
 });

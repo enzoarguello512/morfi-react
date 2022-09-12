@@ -167,7 +167,9 @@ const Navbar = () => {
                 <Link className="text-dark" to="/cart">
                   <FontAwesomeIcon icon={faShoppingCart} className="fs-4" />
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary h-pointer">
-                    <span>{user.cart ? user.cart.products.length : 0}</span>
+                    <span>
+                      {user.cart.products ? user.cart?.products?.length : 0}
+                    </span>
                     <span className="visually-hidden">cart</span>
                   </span>
                 </Link>
