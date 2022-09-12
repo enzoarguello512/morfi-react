@@ -2,10 +2,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
-import { setCredentials } from 'features/user/userSlice';
-import { useLoginMutation } from 'features/user/userApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectCurrentUser,
+  setCart,
+  setCredentials,
+} from 'features/user/userSlice';
+import { useLoginMutation, userApiSlice } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
+import { decryptJwt } from 'util/decryptJwt';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -18,12 +23,20 @@ const LoginForm = () => {
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
 
+  const [getCart, { isLoading: isQueryLoading }] =
+    userApiSlice.endpoints.getCart.useLazyQuery();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const payload = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...payload }));
+      const user = decryptJwt(payload.accessToken);
+      if (user.cart) {
+        const payload = await getCart(user.cart).unwrap();
+        dispatch(setCart(payload));
+      }
       setEmail('');
       setPassword('');
       navigate(from, { replace: true });
