@@ -27,7 +27,7 @@ const Cart = () => {
       <Navbar />
       <main className="mt-11 ff-lato-4">
         <section className="container-xxl my-4 ff-lato-4 min-h-400px">
-          {!productsData ? (
+          {productsData.length === 0 ? (
             <div className="text-center py-5 border shadow rounded">
               <h2 className="mt-4 p-2 fs-4">It seems that the cart is empty</h2>
               <p className="fs-4 fw-bold my-3">¯\_(ツ)_/¯</p>

@@ -21,6 +21,18 @@ export const productApiSlice = apiSlice.injectEndpoints({
         ...result.ids.map((id: string) => ({ type: 'Product', id })),
       ],
     }),
+    //deleteById: builder.mutation({
+    //transformResponse: (responseData, meta, arg) => {
+    //@ts-ignore
+    //return productsAdapter.removeOne(initialState, arg);
+    //},
+    //query: (productId) => ({
+    //url: `/products/${productId}`,
+    //method: 'DELETE',
+    //}),
+    //@ts-ignore
+    //invalidatesTags: (result, error, arg) => [{ type: 'Product', id: arg }],
+    //}),
   }),
 });
 
