@@ -40,6 +40,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
     //method: 'POST',
     //}),
     //}),
+    getCart: builder.query({
+      query: (cartId) => `/cart/${cartId}/products`,
+      providesTags: ['Cart'],
+    }),
   }),
 });
 
@@ -49,4 +53,5 @@ export const {
   useSignupMutation,
   useRefreshMutation,
   useMaybeAddToCartMutation,
+  useGetCartQuery,
 } = userApiSlice;
