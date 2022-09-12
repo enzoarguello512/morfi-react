@@ -1,13 +1,26 @@
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from 'components/Footer/Footer';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItemsContainer from 'components/CartItemsContainer/CartItemsContainer';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectProducsInCart } from 'features/user/userSlice';
 
 const Cart = () => {
+  const [subtotal, setSubtotal] = useState(0);
+
   const productsData = useSelector(selectProducsInCart);
+
+  useEffect(() => {
+    if (productsData) {
+      const totalPrice = productsData.reduce(
+        (acc, { data: { discountedPrice }, quantity }) =>
+          acc + discountedPrice * quantity,
+        0
+      );
+      setSubtotal(totalPrice);
+    }
+  }, [productsData]);
 
   return (
     <React.Fragment>
@@ -32,9 +45,12 @@ const Cart = () => {
               </div>
               <div className="col-10 col-sm-8 col-md-6 col-lg-3">
                 <div className="boder shadow text-center text-lg-start">
-                  {/* TODO: This is handled by redux status */}
-                  <p className="fs-5 fw-bold px-3 pt-3">Subtotal (0) items</p>
-                  <p className="border-bottom pb-3 px-3">$1412</p>
+                  <p className="fs-5 fw-bold px-3 pt-3">
+                    Subtotal ({productsData.length}) items
+                  </p>
+                  <p className="border-bottom pb-3 px-3">
+                    ${subtotal.toFixed(2)}
+                  </p>
                   <div className="px-3 pb-3 text-center">
                     <button className="btn btn-dark">
                       Proceed To Checkout
