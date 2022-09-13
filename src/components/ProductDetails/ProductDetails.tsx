@@ -6,7 +6,7 @@ import {
 } from 'features/products/productsApiSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMaybeAddToCartMutation } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
 
@@ -23,6 +23,9 @@ const ProductDetails = () => {
     selectProductById(state, String(productId))
   );
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleAddToCart = async () => {
     if (user) {
       try {
@@ -32,8 +35,12 @@ const ProductDetails = () => {
           quantity: count,
         });
         // @ts-ignore
-        dispatch(setCart(payload.data));
-        //navigate('/cart');
+        if (payload.data) {
+          // @ts-ignore
+          dispatch(setCart(payload.data));
+          toast.success('Product added to cart');
+        }
+        navigate('/cart');
       } catch (err) {
         let message = 'No Server Response';
         if (err.status === 400) {
@@ -44,8 +51,7 @@ const ProductDetails = () => {
         }
       }
     } else {
-      // TODO: Fix this!!! add navigate
-      //navigate("/login")
+      navigate('/login', { state: { from: location }, replace: true });
     }
   };
 
