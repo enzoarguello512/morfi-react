@@ -64,15 +64,11 @@ const Navbar = () => {
             <ul className="navbar-nav align-items-center justify-content-around mx-auto col-lg-8">
               {/* Home */}
               <li className="nav-item">
-                <Link className="nav-link fs-5" to="/">
-                  Home
-                </Link>
+                <span className="nav-link fs-5">Home</span>
               </li>
               {/* About */}
               <li className="nav-item">
-                <Link className="nav-link fs-5" to="/">
-                  About
-                </Link>
+                <span className="nav-link fs-5">About</span>
               </li>
               {/* Shop */}
               <li className="nav-item">
@@ -86,15 +82,35 @@ const Navbar = () => {
               </li>
               {/* Recipes */}
               <li className="nav-item">
-                <Link className="nav-link fs-5" to="/">
-                  Recipes
-                </Link>
+                <span className="nav-link fs-5">Recipes</span>
               </li>
               {/* Help */}
-              <li className="nav-item">
-                <Link className="nav-link fs-5" to="/">
+              <li className="nav-item dropdown text-center">
+                <Link
+                  className="nav-link fs-5"
+                  to="/help"
+                  id="navbarDropdownMenuLinkHelp"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                   Help
                 </Link>
+                <ul
+                  className="nav-color-list dropdown-menu text-center text-lg-start"
+                  aria-labelledby="navbarDropdownMenuLinkHelp"
+                >
+                  <li>
+                    <Link className="dropdown-item" to="/chat">
+                      Contact
+                    </Link>
+                  </li>
+                  {/*<li>
+                    <Link className="dropdown-item" to="../help/faq/faq.html">
+                      FAQ
+                    </Link>
+                  </li>*/}
+                </ul>
               </li>
               {/* Searchbar */}
               <li className="nav-item">
