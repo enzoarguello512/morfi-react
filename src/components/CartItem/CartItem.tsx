@@ -9,17 +9,17 @@ import {
   selectCurrentUser,
   setCart,
 } from 'features/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { debounce } from 'util/debounce';
 
 const CartItem = ({ productData }) => {
   const { data: product, quantity } = productData;
   const [count, setCount] = useState(quantity as number);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [deleteById, { isLoading }] = useDeleteCartProductMutation();
-  const user = useSelector(selectCurrentUser);
+  const user = useAppSelector(selectCurrentUser);
   const [updateProductQty, { isLoading: isProductLoading }] =
     useUpdateProductQtyMutation();
 

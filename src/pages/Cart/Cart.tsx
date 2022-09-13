@@ -2,14 +2,14 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from 'components/Footer/Footer';
 import React, { useEffect, useState } from 'react';
 import CartItemsContainer from 'components/CartItemsContainer/CartItemsContainer';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectProducsInCart } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/preTyped';
 
 const Cart = () => {
   const [subtotal, setSubtotal] = useState(0);
 
-  const productsData = useSelector(selectProducsInCart);
+  const productsData = useAppSelector(selectProducsInCart);
 
   useEffect(() => {
     if (productsData) {

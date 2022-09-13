@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { logOut, selectCurrentUser } from 'features/user/userSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,11 +10,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useLogoutMutation } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
 
 const Navbar = () => {
-  const user = useSelector(selectCurrentUser);
+  const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [logoutUser, { isLoading }] = useLogoutMutation();
 
   const handleLogOut = async () => {

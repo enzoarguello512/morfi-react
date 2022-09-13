@@ -5,21 +5,21 @@ import {
   useListQuery,
 } from 'features/products/productsApiSlice';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMaybeAddToCartMutation } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
 
 const ProductDetails = () => {
   // @ts-ignore
   const { isLoading: isQueryLoading } = useListQuery();
   const { productId } = useParams();
   const [count, setCount] = useState(1);
-  const user = useSelector(selectCurrentUser);
-  const dispatch = useDispatch();
+  const user = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
   const [addToCart, { isLoading }] = useMaybeAddToCartMutation();
 
-  const product = useSelector((state: TRootState) =>
+  const product = useAppSelector((state: TRootState) =>
     selectProductById(state, String(productId))
   );
 

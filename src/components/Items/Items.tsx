@@ -1,10 +1,10 @@
 import { IProduct } from 'common/types/product.interface';
 import ProductPreview from 'components/ProductPreview/Product';
 import { selectAllProducts } from 'features/products/productsApiSlice';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks/preTyped';
 
 const Items = () => {
-  const products = useSelector(selectAllProducts);
+  const products = useAppSelector(selectAllProducts);
 
   return (
     <section className="col-md-12 col-lg-9 col-xl-12">

@@ -1,10 +1,10 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { selectCurrentToken, selectCurrentUser } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/preTyped';
 
 const RequireAuth = ({ allowedRoles }) => {
-  const user = useSelector(selectCurrentUser);
-  const token = useSelector(selectCurrentToken);
+  const user = useAppSelector(selectCurrentUser);
+  const token = useAppSelector(selectCurrentToken);
   const location = useLocation();
 
   // If the user has sufficient permissions let him/her through

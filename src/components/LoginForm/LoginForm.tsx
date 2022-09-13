@@ -1,16 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectCurrentUser,
-  setCart,
-  setCredentials,
-} from 'features/user/userSlice';
+import { setCart, setCredentials } from 'features/user/userSlice';
 import { useLoginMutation, userApiSlice } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
 import { decryptJwt } from 'util/decryptJwt';
+import { useAppDispatch } from 'hooks/preTyped';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +16,7 @@ const LoginForm = () => {
   const from = location.state?.from?.pathname || '/';
 
   const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [getCart, { isLoading: isQueryLoading }] =
     userApiSlice.endpoints.getCart.useLazyQuery();
