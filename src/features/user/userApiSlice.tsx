@@ -34,15 +34,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
-    //addToCart: builder.mutation({
-    //query: ({ cartId, productId, quantity }) => ({
-    //url: `/cart/${cartId}/products/${productId}/${quantity}`,
-    //method: 'POST',
-    //}),
-    //}),
+    updateProductQty: builder.mutation({
+      query: ({ cartId, productId, quantity }) => ({
+        url: `/cart/${cartId}/products/${productId}/${quantity}`,
+        method: 'POST',
+      }),
+    }),
     getCart: builder.query({
       query: (cartId) => `/cart/${cartId}/products`,
-      providesTags: ['Cart'],
+    }),
+
+    deleteCartProduct: builder.mutation({
+      query: ({ cartId, productId }) => ({
+        url: `/cart/${cartId}/products/${productId}`,
+        method: 'DELETE',
+      }),
     }),
   }),
 });
@@ -54,4 +60,6 @@ export const {
   useRefreshMutation,
   useMaybeAddToCartMutation,
   useGetCartQuery,
+  useDeleteCartProductMutation,
+  useUpdateProductQtyMutation,
 } = userApiSlice;
