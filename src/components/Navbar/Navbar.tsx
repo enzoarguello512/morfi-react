@@ -10,6 +10,7 @@ import {
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { useLogoutMutation } from 'features/user/userApiSlice';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const user = useSelector(selectCurrentUser);
@@ -23,7 +24,13 @@ const Navbar = () => {
       dispatch(logOut());
       navigate('/');
     } catch (err) {
-      console.error(err);
+      let message = 'No Server Response';
+      if (err.status === 400) {
+        message = err.data?.message || 'Bad Request';
+        toast.error(message);
+      } else {
+        toast.error(message);
+      }
     }
   };
 
