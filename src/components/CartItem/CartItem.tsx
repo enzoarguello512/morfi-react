@@ -43,7 +43,7 @@ const CartItem = ({ productData }) => {
     let value: number = count;
     if (count < product.stock && action === 'add') setCount(++value);
     if (count > 1 && action === 'substract') setCount(--value);
-    if (value > 1 && value < product.stock) {
+    if (value > 0 && value <= product.stock) {
       increaseQuantity(value);
     }
   };
