@@ -1,7 +1,12 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react';
 import { TRootState } from 'app/store';
 import { setCredentials, logOut } from 'features/user/userSlice';
-import jwtDecode, { JwtPayload } from 'jwt-decode';
 import config from 'config';
 
 let domain: string = config.BACKEND_DOMAIN;
@@ -22,42 +27,29 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth = async (args, api, extraOptions) => {
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   //@ts-ignore
-  if (result?.error?.originalStatus === 403) {
+  if (result?.error?.status === 403) {
     // send refresh token to get new access token
     const refreshResult = await baseQuery(
       '/auth/refresh-token',
       api,
       extraOptions
     );
-    if (refreshResult?.data) {
-      const user = api.getState().user.user;
-      // @ts-ignore
-      const decodedUser = user
-        ? //@ts-ignore
-          jwtDecode<JwtPayload>(refreshResult.data)
-        : null;
+    if (refreshResult.data) {
       // store the new token
-      api.dispatch(
-        setCredentials({
-          //@ts-ignore
-          ...refreshResult.data,
-          user: {
-            //@ts-ignore
-            email: decodedUser.email,
-            //@ts-ignore
-            firstName: decodedUser.firstName,
-            //@ts-ignore
-            permissionLevel: decodedUser.permissionLevel,
-          },
-        })
-      );
+      // @ts-ignore
+      api.dispatch(setCredentials({ ...refreshResult.data }));
       // retry the original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
+      await baseQuery('/auth/logout', api, extraOptions);
       //@ts-ignore
       api.dispatch(logOut());
     }
