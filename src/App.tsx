@@ -3,26 +3,19 @@ import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Components
-//import Layout from 'components/Layout/Layout';
-// import RequireAuth "components/RequireAuth/RequireAuth"
+import RequireAuth from 'components/RequireAuth/RequireAuth';
+//import PersistLogin from 'components/PersistLogin/PersistLogin';
 
 // Pages
-// import ProductScreen from './screens/ProductScreen';
-// import CartScreen from './screens/CartScreen';
 import Login from 'pages/Login/Login';
 import Signup from 'pages/Signup/Signup';
 import Chat from './pages/Chat/Chat';
-// import Cart from './pages/Cart/Cart';
-// import SuccesfulOrder from './pages/SuccesfulOrder/SuccesfulOrder';
-// import Orders from './pages/Orders/Orders';
-// import Account from './pages/Account/Account';
-// import Products from './pages/Products/Products';
-import Shop from './pages/Shop/Shop';
-import RequireAuth from 'components/RequireAuth/RequireAuth';
-import { ERoles } from 'common/types/common.roles.enum';
-import Product from 'pages/Product/Product';
 import Cart from 'pages/Cart/Cart';
-//import PersistLogin from 'components/PersistLogin/PersistLogin';
+import Shop from './pages/Shop/Shop';
+import Product from 'pages/Product/Product';
+
+// Rol
+import { ERoles } from 'common/types/common.roles.enum';
 
 function App() {
   return (
