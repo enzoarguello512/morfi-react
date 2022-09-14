@@ -21,7 +21,7 @@ const Login = () => {
             <figure className="m-0 h-400px overflow-hidden rounded">
               <img
                 className="img-fluid img-rez rounded"
-                src="img/account/fastFood.jpg"
+                src="img/account/fast-food.jpg"
                 alt="banner"
               />
             </figure>
