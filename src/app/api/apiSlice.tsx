@@ -4,10 +4,12 @@ import {
   FetchArgs,
   fetchBaseQuery,
   FetchBaseQueryError,
+  FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/query/react';
 import { TRootState } from 'app/store';
 import { setCredentials, logOut } from 'features/user/userSlice';
 import config from 'config';
+import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 
 let domain: string = config.BACKEND_DOMAIN;
 
@@ -34,23 +36,22 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  //@ts-ignore
   if (result?.error?.status === 403) {
     // send refresh token to get new access token
-    const refreshResult = await baseQuery(
-      '/auth/refresh-token',
-      api,
-      extraOptions
-    );
-    if (refreshResult.data) {
+    const refreshResult: QueryReturnValue<
+      { accessToken?: string },
+      FetchBaseQueryError,
+      FetchBaseQueryMeta
+    > = await baseQuery('/auth/refresh-token', api, extraOptions);
+
+    if (refreshResult?.data?.accessToken) {
+      const { accessToken } = refreshResult.data;
       // store the new token
-      // @ts-ignore
-      api.dispatch(setCredentials({ ...refreshResult.data }));
+      api.dispatch(setCredentials({ accessToken }));
       // retry the original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
       await baseQuery('/auth/logout', api, extraOptions);
-      //@ts-ignore
       api.dispatch(logOut());
     }
   }
@@ -61,6 +62,6 @@ const baseQueryWithReauth: BaseQueryFn<
 export const apiSlice = createApi({
   reducerPath: 'api', // optional
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Product', 'Cart'],
+  tagTypes: ['Product', 'Cart', 'Message'],
   endpoints: (builder) => ({}),
 });

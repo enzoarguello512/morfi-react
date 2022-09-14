@@ -6,14 +6,17 @@ import { useLoginMutation, userApiSlice } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
 import { decryptJwt } from 'util/decryptJwt';
 import { useAppDispatch } from 'hooks/preTyped';
+import { ILocation } from 'common/types/location.interface';
+import { ICredentialToken } from 'common/types/credentials.req.interface';
+import { ICart } from 'common/types/cart.interface';
+import { IUser } from 'common/types/user.interface';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
-  // @ts-ignore
-  const from = location.state?.from?.pathname || '/';
+  const location: ILocation = useLocation();
+  const from: string = location.state?.from?.pathname || '/';
 
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
@@ -21,15 +24,21 @@ const LoginForm = () => {
   const [getCart, { isLoading: isQueryLoading }] =
     userApiSlice.endpoints.getCart.useLazyQuery();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const payload = await login({ email, password }).unwrap();
+      const payload: ICredentialToken = await login({
+        email,
+        password,
+      }).unwrap();
       dispatch(setCredentials({ ...payload }));
-      const user = decryptJwt(payload.accessToken);
+      const user: IUser = decryptJwt(payload.accessToken);
       if (user.cart) {
-        const payload = await getCart(user.cart).unwrap();
+        const payload: ICart = await getCart(
+          //In the first load of the application user.cart is equal to the id(string) of mongoose or an empty string ("").
+          user.cart as unknown as string
+        ).unwrap();
         dispatch(setCart(payload));
       }
       setEmail('');
@@ -37,7 +46,7 @@ const LoginForm = () => {
       navigate(from, { replace: true });
     } catch (err) {
       let message = 'No Server Response';
-      if (err.status === 400) {
+      if (err.status >= 400 && err.status < 500) {
         message = err.data?.message || 'Bad Request';
         toast.error(message);
       } else {
@@ -46,9 +55,11 @@ const LoginForm = () => {
     }
   };
 
-  const handleEmailInput = (e): void => setEmail(e.target.value);
+  const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setEmail(e.target.value);
 
-  const handlePasswordInput = (e) => setPassword(e.target.value);
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value);
 
   const content = isLoading ? (
     <div className="spinner-border text-center" role="status">

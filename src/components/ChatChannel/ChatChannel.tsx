@@ -9,9 +9,8 @@ const { data: dataUser } = {
 };
 
 const ChatChannel = () => {
-  // const [savingMessage, setSavingMessage] = useState(false);
-  // const { data: messages, status } = useAppSelector((state) => state.messages);
-  //
+  //const { data: messages, status } = useAppSelector((state) => state.messages);
+
   const [messages, setMessages] = useState([]);
   const [status, setStatus] = useState('idle');
 

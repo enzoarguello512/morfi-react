@@ -11,21 +11,22 @@ import {
 import { useLogoutMutation } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
+import { IUser } from 'common/types/user.interface';
 
 const Navbar = () => {
-  const user = useAppSelector(selectCurrentUser);
+  const user: IUser = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [logoutUser, { isLoading }] = useLogoutMutation();
 
-  const handleLogOut = async () => {
+  const handleLogOut = async (): Promise<void> => {
     try {
       await logoutUser().unwrap();
       dispatch(logOut());
       navigate('/');
     } catch (err) {
       let message = 'No Server Response';
-      if (err.status === 400) {
+      if (err.status >= 400 && err.status < 500) {
         message = err.data?.message || 'Bad Request';
         toast.error(message);
       } else {

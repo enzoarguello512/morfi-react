@@ -1,7 +1,9 @@
+import { ICartProduct } from 'common/types/cart.interface';
 import CartItem from 'components/CartItem/CartItem';
 import React from 'react';
 
 const CartItemsContainer = ({ productsData }) => {
+  // productsData: Array<ICartProduct>
   return (
     <React.Fragment>
       {!productsData.length ? (
@@ -11,8 +13,7 @@ const CartItemsContainer = ({ productsData }) => {
           </div>
         </div>
       ) : (
-        productsData.map((productData) => (
-          // @ts-ignore
+        productsData.map((productData: ICartProduct) => (
           <CartItem productData={productData} key={productData.data.id} />
         ))
       )}

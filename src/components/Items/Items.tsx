@@ -4,7 +4,7 @@ import { selectAllProducts } from 'features/products/productsApiSlice';
 import { useAppSelector } from 'hooks/preTyped';
 
 const Items = () => {
-  const products = useAppSelector(selectAllProducts);
+  const products: Array<IProduct> = useAppSelector(selectAllProducts);
 
   return (
     <section className="col-md-12 col-lg-9 col-xl-12">

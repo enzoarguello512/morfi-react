@@ -16,16 +16,12 @@
 //const verifyRefreshToken = useCallback(async () => {
 //try {
 //const payload = await refresh().unwrap();
-//console.log('soy payload ', payload);
-//@ts-ignore
 //const decodedUser: IUser = jwtDecode<JwtPayload>(payload?.accessToken);
-//console.log('soy decoded ', decodedUser);
 //const user = {
 //email: decodedUser.email,
 //firstName: decodedUser.firstName,
 //permissionLevel: decodedUser.permissionLevel,
 //};
-//@ts-ignore
 //dispatch(setCredentials({ ...payload, user }));
 //} catch (err) {
 //console.error(err);

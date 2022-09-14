@@ -1,5 +1,6 @@
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ICart, ICartProduct } from 'common/types/cart.interface';
 import {
   useDeleteCartProductMutation,
   useUpdateProductQtyMutation,
@@ -10,13 +11,13 @@ import {
   setCart,
 } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import { debounce } from 'util/debounce';
 
 const CartItem = ({ productData }) => {
-  const { data: product, quantity } = productData;
-  const [count, setCount] = useState(quantity as number);
+  const { data: product, quantity } = productData as ICartProduct;
+  const [count, setCount] = useState(quantity);
   const dispatch = useAppDispatch();
   const [deleteById, { isLoading }] = useDeleteCartProductMutation();
   const user = useAppSelector(selectCurrentUser);
@@ -26,7 +27,7 @@ const CartItem = ({ productData }) => {
   const increaseQuantity = useCallback(
     debounce(async (quantity: number): Promise<void> => {
       try {
-        const payload = await updateProductQty({
+        const payload: ICart = await updateProductQty({
           cartId: user.cart.id,
           productId: product.id,
           quantity,
@@ -39,7 +40,7 @@ const CartItem = ({ productData }) => {
     []
   );
 
-  const countHandler = (action) => {
+  const countHandler = (action: string): void => {
     let value: number = count;
     if (count < product.stock && action === 'add') setCount(++value);
     if (count > 1 && action === 'substract') setCount(--value);
@@ -48,13 +49,11 @@ const CartItem = ({ productData }) => {
     }
   };
 
-  const handleInput = (e) => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     try {
-      let value = e.target.value;
+      let value = parseInt(e.target.value.replace(/\D/g, ''));
       if (value > 0 && value <= product.stock) {
-        value.replace(/\D/g, '');
-        if (value === '' || value === 0) value = 1;
-        value = parseInt(value);
+        if (String(value) === '' || value === 0) value = 1;
       } else {
         value = 1;
       }
@@ -62,7 +61,7 @@ const CartItem = ({ productData }) => {
       increaseQuantity(value);
     } catch (err) {
       let message = 'No Server Response';
-      if (err.status === 400) {
+      if (err.status >= 400 && err.status < 500) {
         message = err.data?.message || 'Bad Request';
         toast.error(message);
       } else {
@@ -71,7 +70,7 @@ const CartItem = ({ productData }) => {
     }
   };
 
-  const handleRemove = async () => {
+  const handleRemove = async (): Promise<void> => {
     try {
       await deleteById({
         cartId: user.cart.id,
@@ -80,7 +79,7 @@ const CartItem = ({ productData }) => {
       dispatch(removeCartProduct(product.id));
     } catch (err) {
       let message = 'No Server Response';
-      if (err.status === 400) {
+      if (err.status >= 400 && err.status < 500) {
         message = err.data?.message || 'Bad Request';
         toast.error(message);
       } else {
