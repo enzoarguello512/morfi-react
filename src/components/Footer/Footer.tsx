@@ -11,6 +11,17 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer>
+      <div className="container-fluid bg-yellow-1">
+        <div className="container-xxl my-0 py-1 text-center">
+          <a
+            className="text-dark ff-lato-7 text-decoration-underline"
+            href="https://morfi.vercel.app/views/shop/shop.html"
+          >
+            Check the original version of this site
+          </a>
+          🚀
+        </div>
+      </div>
       {/* footer-container-fluid-start */}
       <div className="container-fluid bg-darker-2">
         {/* footer-container-xxl-start */}

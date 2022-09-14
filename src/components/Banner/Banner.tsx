@@ -9,7 +9,10 @@ const Banner = () => {
         <div className="carousel-inner rounded">
           {/* banner-1 */}
           <div className="carousel-item active">
-            <a className="h-opacity-1" href="top-offers.html">
+            <a
+              className="h-opacity-1"
+              href="https://morfi.vercel.app/views/shop/top-offers.html"
+            >
               <figure className="m-0">
                 <img
                   className="img-fluid"
@@ -23,7 +26,10 @@ const Banner = () => {
 
           {/* banner-2 */}
           <div className="carousel-item">
-            <a className="h-opacity-1" href="top-offers.html">
+            <a
+              className="h-opacity-1"
+              href="https://morfi.vercel.app/views/shop/top-offers.html"
+            >
               <figure className="m-0">
                 <img
                   className="img-fluid"
@@ -37,7 +43,10 @@ const Banner = () => {
 
           {/* banner-3 */}
           <div className="carousel-item">
-            <a className="h-opacity-1" href="top-offers.html">
+            <a
+              className="h-opacity-1"
+              href="https://morfi.vercel.app/views/shop/top-offers.html"
+            >
               <figure className="m-0">
                 <img
                   className="img-fluid"
