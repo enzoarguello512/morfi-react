@@ -5,11 +5,12 @@ import CartItemsContainer from 'components/CartItemsContainer/CartItemsContainer
 import { Link } from 'react-router-dom';
 import { selectProducsInCart } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/preTyped';
+import { ICartProduct } from 'common/types/cart.interface';
 
 const Cart = () => {
   const [subtotal, setSubtotal] = useState(0);
 
-  const productsData = useAppSelector(selectProducsInCart);
+  const productsData: Array<ICartProduct> = useAppSelector(selectProducsInCart);
 
   useEffect(() => {
     if (productsData) {

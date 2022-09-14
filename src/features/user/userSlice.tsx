@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TRootState } from 'app/store';
+import { ICart } from 'common/types/cart.interface';
+import { ICredentialToken } from 'common/types/credentials.req.interface';
 import { IUserState } from 'common/types/user.interface';
 import { decryptJwt } from 'util/decryptJwt';
 
@@ -12,7 +14,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCredentials: (state, action) => {
+    setCredentials: (state, action: PayloadAction<ICredentialToken>) => {
       const { accessToken } = action.payload;
       state.user = decryptJwt(accessToken);
       state.token = accessToken;
@@ -21,10 +23,10 @@ const userSlice = createSlice({
       state.user = null;
       state.token = null;
     },
-    setCart: (state, action) => {
+    setCart: (state, action: PayloadAction<ICart>) => {
       state.user.cart = action.payload;
     },
-    removeCartProduct: (state, action) => {
+    removeCartProduct: (state, action: PayloadAction<string>) => {
       const newProducts = state.user.cart.products.filter(
         (productData) => productData.data.id !== action.payload // product id
       );

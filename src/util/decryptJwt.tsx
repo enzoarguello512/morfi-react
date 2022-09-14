@@ -1,9 +1,8 @@
 import { IUser } from 'common/types/user.interface';
-import jwtDecode, { JwtPayload } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 export function decryptJwt(token: string): IUser {
-  // @ts-ignore
-  const decodedUser: IUser = jwtDecode<JwtPayload>(token);
+  const decodedUser: IUser = jwtDecode<IUser>(token);
   const user: IUser = {
     id: decodedUser.id,
     email: decodedUser.email,

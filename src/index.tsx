@@ -15,7 +15,6 @@ import { productApiSlice } from 'features/products/productsApiSlice';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// @ts-ignore
 store.dispatch(productApiSlice.endpoints.list.initiate());
 
 const root = ReactDOM.createRoot(
