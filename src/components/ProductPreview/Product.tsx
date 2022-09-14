@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 const ProductPreview = ({ product }) => {
+  // product: IProduct
   const promotions =
     product.discount || product.promotion ? (
       <div className="text-break text-truncate-1">

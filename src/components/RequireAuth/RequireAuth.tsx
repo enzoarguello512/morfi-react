@@ -1,10 +1,11 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import { selectCurrentToken, selectCurrentUser } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/preTyped';
+import { IUser } from 'common/types/user.interface';
 
 const RequireAuth = ({ allowedRoles }) => {
-  const user = useAppSelector(selectCurrentUser);
-  const token = useAppSelector(selectCurrentToken);
+  const user: IUser = useAppSelector(selectCurrentUser);
+  const token: string = useAppSelector(selectCurrentToken);
   const location = useLocation();
 
   // If the user has sufficient permissions let him/her through

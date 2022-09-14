@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ICredentialToken } from 'common/types/credentials.req.interface';
 
 const SignupForm = () => {
   const [signup, { isLoading }] = useSignupMutation();
@@ -21,20 +22,25 @@ const SignupForm = () => {
   });
   const { firstName, lastName, email, password } = formValues;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
 
     try {
       await signup(formValues).unwrap();
       toast.success('Successful registration');
-      const payload = await login({ email, password }).unwrap();
+      const payload: ICredentialToken = await login({
+        email,
+        password,
+      }).unwrap();
       dispatch(setCredentials({ ...payload }));
       setFormValues({
         firstName: '',
@@ -45,7 +51,7 @@ const SignupForm = () => {
       navigate('/');
     } catch (err) {
       let message = 'No Server Response';
-      if (err.status === 400) {
+      if (err.status >= 400 && err.status < 500) {
         message = err.data?.message || 'Bad Request';
         toast.error(message);
       } else {

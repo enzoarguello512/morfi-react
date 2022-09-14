@@ -1,4 +1,3 @@
-import { TRootState } from 'app/store';
 import { selectCurrentUser, setCart } from 'features/user/userSlice';
 import {
   selectProductById,
@@ -9,41 +8,41 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMaybeAddToCartMutation } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
+import { IUser } from 'common/types/user.interface';
+import { IProduct } from 'common/types/product.interface';
+import { ICart } from 'common/types/cart.interface';
 
 const ProductDetails = () => {
-  // @ts-ignore
   const { isLoading: isQueryLoading } = useListQuery();
   const { productId } = useParams();
   const [count, setCount] = useState(1);
-  const user = useAppSelector(selectCurrentUser);
+  const user: IUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   const [addToCart, { isLoading }] = useMaybeAddToCartMutation();
 
-  const product = useAppSelector((state: TRootState) =>
+  const product: IProduct = useAppSelector((state) =>
     selectProductById(state, String(productId))
   );
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (): Promise<void> => {
     if (user) {
       try {
-        const payload = await addToCart({
+        const payload: ICart = await addToCart({
           userId: user.id,
           productId,
           quantity: count,
-        });
-        // @ts-ignore
-        if (payload.data) {
-          // @ts-ignore
-          dispatch(setCart(payload.data));
+        }).unwrap();
+        if (payload) {
+          dispatch(setCart(payload));
           toast.success('Product added to cart');
         }
         navigate('/cart');
       } catch (err) {
         let message = 'No Server Response';
-        if (err.status === 400) {
+        if (err.status >= 400 && err.status < 500) {
           message = err.data?.message || 'Bad Request';
           toast.error(message);
         } else {
@@ -59,20 +58,16 @@ const ProductDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const countHandler = (action) => {
-    if (count < product.stock && action === 'add') {
-      setCount(count + 1);
-    }
-    if (count > 1 && action === 'substract') {
-      setCount(count - 1);
-    }
+  const countHandler = (action: string): void => {
+    if (count < product.stock && action === 'add') setCount(count + 1);
+    if (count > 1 && action === 'substract') setCount(count - 1);
   };
 
-  const countInput = (value) => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    let value = parseInt(e.target.value.replace(/\D/g, ''));
     if (value > 0 && value <= product.stock) {
-      value.replace(/\D/g, '');
-      if (value === '' || value === 0) value = 1;
-      setCount(parseInt(value));
+      if (String(value) === '' || value === 0) value = 1;
+      setCount(value);
     } else {
       setCount(1);
     }
@@ -147,9 +142,7 @@ const ProductDetails = () => {
                     className="form-control text-center border-0"
                     aria-label="item quantity"
                     value={count}
-                    onChange={(e) => {
-                      countInput(e.target.value);
-                    }}
+                    onChange={handleInput}
                   />
                   <button
                     className="btn btn-white"

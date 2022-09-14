@@ -1,4 +1,8 @@
-import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import {
+  createEntityAdapter,
+  createSelector,
+  EntityState,
+} from '@reduxjs/toolkit';
 import { apiSlice } from 'app/api/apiSlice';
 import { TRootState } from 'app/store';
 import { IProduct } from 'common/types/product.interface';
@@ -9,28 +13,24 @@ const initialState = productsAdapter.getInitialState();
 
 export const productApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    list: builder.query({
-      transformResponse: (responseData) => {
-        // @ts-ignore
+    list: builder.query<EntityState<IProduct>, void>({
+      transformResponse: (responseData: Array<IProduct>) => {
         return productsAdapter.setAll(initialState, responseData);
       },
       query: () => '/products',
-      // @ts-ignore
       providesTags: (result, error, arg) => [
+        ...result.ids.map((id: string) => ({ type: 'Product' as const, id })),
         { type: 'Product', id: 'LIST' },
-        ...result.ids.map((id: string) => ({ type: 'Product', id })),
       ],
     }),
     //deleteById: builder.mutation({
     //transformResponse: (responseData, meta, arg) => {
-    //@ts-ignore
     //return productsAdapter.removeOne(initialState, arg);
     //},
     //query: (productId) => ({
     //url: `/products/${productId}`,
     //method: 'DELETE',
     //}),
-    //@ts-ignore
     //invalidatesTags: (result, error, arg) => [{ type: 'Product', id: arg }],
     //}),
   }),
@@ -39,7 +39,6 @@ export const productApiSlice = apiSlice.injectEndpoints({
 export const { useListQuery } = productApiSlice;
 
 // returns the query result object
-// @ts-ignore
 export const selectProductsResult = productApiSlice.endpoints.list.select();
 
 // Creates memoized selector
