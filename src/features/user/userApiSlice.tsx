@@ -64,6 +64,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
       }),
     }),
+    createOrder: builder.mutation({
+      query: ({ userId, cartId }) => ({
+        url: `/orders/${userId}/cart/${cartId}`,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -77,4 +83,5 @@ export const {
   useDeleteCartProductMutation,
   useUpdateProductQtyMutation,
   useDeleteCartMutation,
+  useCreateOrderMutation,
 } = userApiSlice;
