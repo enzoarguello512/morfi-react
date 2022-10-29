@@ -15,12 +15,25 @@ const SignupForm = () => {
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     password: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    age: '',
+    phoneNumber: '',
+    image: '',
   });
-  const { firstName, lastName, email, password } = formValues;
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    address,
+    age,
+    phoneNumber,
+    image,
+  } = formValues;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormValues({
@@ -43,10 +56,14 @@ const SignupForm = () => {
       }).unwrap();
       dispatch(setCredentials({ ...payload }));
       setFormValues({
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
+        firstName: '',
+        lastName: '',
+        address: '',
+        age: '',
+        phoneNumber: '',
+        image: '',
       });
       navigate('/');
     } catch (err) {
