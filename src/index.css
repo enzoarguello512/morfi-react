@@ -9088,7 +9088,7 @@ textarea.form-control-lg {
   filter: alpha(opacity=75); }
 
 .h-shadow {
-  transition: .5s; }
+  transition: 0.5s; }
 
 .h-shadow:hover {
   box-shadow: 0 0.5rem 1rem rgba(33, 33, 33, 0.15) !important; }
@@ -9164,3 +9164,14 @@ textarea.form-control-lg {
 .a-disabled {
   pointer-events: none;
   cursor: default; }
+
+.thumbnail {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%; }
+
+.thumbnail img {
+  width: auto;
+  height: 100%; }
