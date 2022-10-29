@@ -14,7 +14,7 @@ It is a project only with the intention of learning and improving skills, the en
 * [Vercel](https://morfi-react.vercel.app/) (full)
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/75096734/189104699-d999eed6-a663-4952-8964-ff1ef6277717.png" alt="The Morfi SPA" height="500">
+    <img src="https://user-images.githubusercontent.com/75096734/190830800-261c9be8-6355-462e-a74a-ffc474dc7233.png" alt="The Morfi SPA" height="300">
 </p>
 
 
