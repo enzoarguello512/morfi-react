@@ -13,6 +13,7 @@ import Chat from './pages/Chat/Chat';
 import Cart from 'pages/Cart/Cart';
 import Shop from './pages/Shop/Shop';
 import Product from 'pages/Product/Product';
+import UserProfile from 'pages/UserProfile/UserProfile';
 
 // Rol
 import { ERoles } from 'common/types/common.roles.enum';
@@ -31,6 +32,7 @@ function App() {
       <Route element={<RequireAuth allowedRoles={ERoles.FREE} />}>
         <Route path="chat" element={<Chat />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="profile" element={<UserProfile />} />
       </Route>
 
       <Route path="product/:productId" element={<Product />} />
