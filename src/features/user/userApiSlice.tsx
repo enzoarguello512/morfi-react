@@ -52,10 +52,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
     getCart: builder.query<ICart, string>({
       query: (cartId) => `/cart/${cartId}/products`,
     }),
-
     deleteCartProduct: builder.mutation<void, IDeleteProduct>({
       query: ({ cartId, productId }) => ({
         url: `/cart/${cartId}/products/${productId}`,
+        method: 'DELETE',
+      }),
+    }),
+    deleteCart: builder.mutation({
+      query: (cartId) => ({
+        url: `/cart/${cartId}`,
         method: 'DELETE',
       }),
     }),
@@ -71,4 +76,5 @@ export const {
   useGetCartQuery,
   useDeleteCartProductMutation,
   useUpdateProductQtyMutation,
+  useDeleteCartMutation,
 } = userApiSlice;
