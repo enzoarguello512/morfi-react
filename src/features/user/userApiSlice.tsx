@@ -83,6 +83,6 @@ export const {
   useGetCartQuery,
   useDeleteCartProductMutation,
   useUpdateProductQtyMutation,
-  useDeleteCartMutation,
+  useUpdateCartMutation,
   useCreateOrderMutation,
 } = userApiSlice;
