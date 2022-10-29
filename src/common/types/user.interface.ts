@@ -12,3 +12,21 @@ export interface IUserState {
   user: IUser | null;
   token: string;
 }
+
+export interface IUserProfile {
+  id: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName?: string;
+  address: string;
+  age: number;
+  phoneNumber: string;
+  imageId: string;
+  imageUrl: string;
+  permissionLevel: number;
+  refreshToken?: Array<string>;
+  cart?: ICart;
+  createdAt?: Date;
+  updatedAt?: Date;
+}

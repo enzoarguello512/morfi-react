@@ -8,9 +8,12 @@ import {
   IDeleteProduct,
   ISignupData,
 } from 'common/types/slices';
+import { IUserProfile } from 'common/types/user.interface';
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // Account
+    ///////////////////////////
     login: builder.mutation<ICredentialToken, ICredentialsLogin>({
       query: (credentials) => ({
         url: '/auth',
@@ -37,6 +40,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getUser: builder.query<IUserProfile, string>({
+      query: (userId) => `/users/${userId}`,
+    }),
+
+    // Cart
+    ///////////////////////////
     maybeAddToCart: builder.mutation<ICart, ICreateOrRead>({
       query: ({ userId, productId, quantity }) => ({
         url: `/cart/${userId}/${productId}/${quantity}`,
@@ -85,4 +94,5 @@ export const {
   useUpdateProductQtyMutation,
   useUpdateCartMutation,
   useCreateOrderMutation,
+  useGetUserQuery,
 } = userApiSlice;
