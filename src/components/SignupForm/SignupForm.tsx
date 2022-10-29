@@ -178,6 +178,95 @@ const SignupForm = () => {
       </div>
       {/* password */}
 
+      {/* phone number */}
+      <div className="col-sm-12">
+        <label htmlFor="phoneNumber" className="form-label">
+          Phone number
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="phoneNumber"
+          onChange={handleChange}
+          value={phoneNumber}
+          placeholder="phone-number"
+          aria-describedby="phoneNumber-feedback"
+          autoComplete="current-phoneNumber"
+          required
+          name="phoneNumber"
+        />
+        <div id="phone-number-i-feedback" className="invalid-feedback">
+          Please provide a valid phone-number
+        </div>
+      </div>
+      {/* phone number */}
+
+      {/* address */}
+      <div className="col-sm-12">
+        <label htmlFor="address" className="form-label">
+          Address
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="address"
+          onChange={handleChange}
+          value={address}
+          placeholder="Street address or P.O. Box"
+          aria-describedby="address-feedback"
+          autoComplete="current-address"
+          required
+          name="address"
+        />
+        <div id="address-i-feedback" className="invalid-feedback">
+          Please provide a valid address
+        </div>
+      </div>
+      {/* address */}
+
+      {/* age */}
+      <div className="col-sm-12">
+        <label htmlFor="age" className="form-label">
+          Age
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="age"
+          onChange={handleChange}
+          value={age}
+          placeholder="204"
+          aria-describedby="age-feedback"
+          autoComplete="age"
+          required
+          maxLength={3}
+          name="age"
+        />
+        <div id="age-feedback" className="invalid-feedback">
+          Please choose a valid age.
+        </div>
+      </div>
+      {/* age */}
+
+      <div className="col-sm-12">
+        <label htmlFor="formFile" className="form-label">
+          Avatar image
+        </label>
+        <input
+          type="file"
+          className="form-control"
+          id="formFile"
+          onChange={handleChange}
+          value={image}
+          aria-describedby="image-feedback"
+          autoComplete="image"
+          name="image"
+        />
+        <div id="image-feedback" className="invalid-feedback">
+          Please choose a valid image.
+        </div>
+      </div>
+
       {/* newsletter */}
       <div className="col-md-12">
         <div className="form-check form-switch mt-2">
