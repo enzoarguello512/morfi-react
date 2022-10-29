@@ -3,6 +3,7 @@ import { logOut, selectCurrentUser } from 'features/user/userSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAngleDown,
+  faGear,
   faRightFromBracket,
   faSearch,
   faShoppingCart,
@@ -176,6 +177,12 @@ const Navbar = () => {
                     <FontAwesomeIcon icon={faAngleDown} className="ms-3" />
                   </button>
                   <ul className="nav-color-list dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/profile">
+                        <FontAwesomeIcon icon={faGear} className="me-2" />
+                        Profile
+                      </Link>
+                    </li>
                     <li>
                       {isLoading ? (
                         <div className="dropdown-item text-center">
