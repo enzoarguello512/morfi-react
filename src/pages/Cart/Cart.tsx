@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { selectProducsInCart } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/preTyped';
 import { ICartProduct } from 'common/types/cart.interface';
+import CartSubtotal from 'components/CartSubtotal/CartSubtotal';
 
 const Cart = () => {
   const [subtotal, setSubtotal] = useState(0);
@@ -39,25 +40,13 @@ const Cart = () => {
           ) : (
             <div className="row justify-content-center">
               <div className="col-12 col-lg-9">
-                <h2 className="fw-bold py-3 text-center text-lg-start">
-                  Shopping Cart
-                </h2>
                 <CartItemsContainer productsData={productsData} />
               </div>
               <div className="col-10 col-sm-8 col-md-6 col-lg-3">
-                <div className="boder shadow text-center text-lg-start">
-                  <p className="fs-5 fw-bold px-3 pt-3">
-                    Subtotal ({productsData.length}) items
-                  </p>
-                  <p className="border-bottom pb-3 px-3">
-                    ${subtotal.toFixed(2)}
-                  </p>
-                  <div className="px-3 pb-3 text-center">
-                    <button className="btn btn-dark">
-                      Proceed To Checkout
-                    </button>
-                  </div>
-                </div>
+                <CartSubtotal
+                  productsQuantity={productsData.length}
+                  subtotal={subtotal}
+                />
               </div>
             </div>
           )}
