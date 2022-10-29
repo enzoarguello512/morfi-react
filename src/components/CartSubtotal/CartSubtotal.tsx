@@ -15,13 +15,6 @@ const CartSubtotal = ({ productsQuantity, subtotal }) => {
 
   const handleOrder = async (e) => {
     try {
-      await updateCart({
-        cartId: user.cart.id,
-        body: {
-          products: [],
-        },
-      }).unwrap();
-
       //const payload = await createOrder({
       await createOrder({
         userId: user.id,
@@ -33,6 +26,13 @@ const CartSubtotal = ({ productsQuantity, subtotal }) => {
           products: [],
         })
       );
+
+      await updateCart({
+        cartId: user.cart.id,
+        body: {
+          products: [],
+        },
+      }).unwrap();
     } catch (err) {
       let message = 'No Server Response';
       if (err.status >= 400 && err.status < 500) {
