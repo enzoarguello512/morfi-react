@@ -10,22 +10,25 @@ const UserCard = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="col-6 my-5">
+    <div className="col col-sm-9 col-md-7 col-lg-6 col-xl-5 my-5 text-center ff-lato-4">
       <div className="border rounded">
-        <div className="bg-green-5 p-3 rounded-top text-center ">
+        <div className="bg-green-5 p-3 rounded-top ">
           <div className="d-inline-block p-3 bg-white rounded-circle">
             <div className="m-0 thumbnail">
               <img className="" src={userProfile.imageUrl} alt="user avatar" />
             </div>
           </div>
         </div>
-        <h2 className="px-3 py-2 text-center ff-lato-4">{`${userProfile.firstName} ${userProfile.lastName}`}</h2>
-        <div className="px-3 pb-3 fs-5">
-          <div className="text-center">{userProfile.email}</div>
-          <div className="text-center fw-bold">{userProfile.address}</div>
-          <div>Address: {userProfile.address}</div>
-          <div>Phone number: {userProfile.phoneNumber}</div>
-          <div>Permission level: {userProfile.permissionLevel}</div>
+        <div className="px-3 pb-3 text-truncate">
+          <h2 className="py-4 mb-0">{`${userProfile.firstName} ${userProfile.lastName}`}</h2>
+          <div className="fs-5">
+            <div>{userProfile.email}</div>
+            <div className="fw-bold">{userProfile.address}</div>
+            <hr />
+            <div>Phone number: {userProfile.phoneNumber}</div>
+            <div>Age: {userProfile.age}</div>
+            <div>Permission level: {userProfile.permissionLevel}</div>
+          </div>
         </div>
       </div>
     </div>
