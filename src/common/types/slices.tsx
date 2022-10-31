@@ -1,14 +1,11 @@
+import { IUserProfile } from './user.interface';
+
 export interface ICredentialsLogin {
   email: string;
   password: string;
 }
 
-export interface ISignupData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+export interface ISignupData extends FormData, Partial<IUserProfile> {}
 
 export interface ICreateOrRead {
   userId: string;

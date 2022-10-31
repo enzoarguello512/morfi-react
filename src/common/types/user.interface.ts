@@ -30,3 +30,5 @@ export interface IUserProfile {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface IUserFormData extends FormData, IUser {}
