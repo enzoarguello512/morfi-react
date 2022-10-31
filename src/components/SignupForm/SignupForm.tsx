@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ICredentialToken } from 'common/types/credentials.req.interface';
+import { IUserFormData } from 'common/types/user.interface';
 
 const SignupForm = () => {
   const [signup, { isLoading }] = useSignupMutation();
@@ -13,6 +14,9 @@ const SignupForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const defaultAvatar =
+    'https://res.cloudinary.com/enzoarguello512/image/upload/v1667251875/Users/abstract-user-flat-4_zsviri.svg';
 
   const [formValues, setFormValues] = useState({
     email: '',
@@ -36,19 +40,33 @@ const SignupForm = () => {
   } = formValues;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name !== 'image') {
+      setFormValues({
+        ...formValues,
+        [e.target.name]: e.target.value,
+      });
+    } else if (e.target.files[0]) {
+      setFormValues({
+        ...formValues,
+        image: URL.createObjectURL(e.target.files[0]),
+      });
+    }
   };
+
+  console.log(formValues);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
 
+    const formData = new FormData() as IUserFormData;
+    Object.entries(formValues).forEach((formElement) => {
+      formData.append(formElement[0], formElement[1]);
+    });
+
     try {
-      await signup(formValues).unwrap();
+      await signup(formData).unwrap();
       toast.success('Successful registration');
       const payload: ICredentialToken = await login({
         email,
@@ -248,16 +266,25 @@ const SignupForm = () => {
       </div>
       {/* age */}
 
-      <div className="col-sm-12">
-        <label htmlFor="formFile" className="form-label">
+      {/* image */}
+      <div className="col-sm-12 text-center">
+        <label htmlFor="image" className="form-label d-block">
           Avatar image
         </label>
+        <div className="d-inline-block p-3 bg-white rounded-circle mb-2">
+          <div className="m-0 thumbnail">
+            <img
+              className="img-rez"
+              src={image ? image : defaultAvatar}
+              alt="user avatar"
+            />
+          </div>
+        </div>
         <input
           type="file"
           className="form-control"
-          id="formFile"
+          id="image"
           onChange={handleChange}
-          value={image}
           aria-describedby="image-feedback"
           autoComplete="image"
           name="image"
@@ -266,6 +293,7 @@ const SignupForm = () => {
           Please choose a valid image.
         </div>
       </div>
+      {/* image */}
 
       {/* newsletter */}
       <div className="col-md-12">
