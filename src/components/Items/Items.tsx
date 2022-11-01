@@ -7,7 +7,7 @@ const Items = () => {
   const products: Array<IProduct> = useAppSelector(selectAllProducts);
 
   return (
-    <section className="col-md-12 col-lg-9 col-xl-12">
+    <section className="col-md-12 col-lg-8 col-xl-9">
       {!products.length ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-grow text-secondary my-2" role="status">

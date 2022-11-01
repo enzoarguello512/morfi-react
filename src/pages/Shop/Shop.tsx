@@ -3,6 +3,7 @@ import React from 'react';
 import Banner from 'components/Banner/Banner';
 import Items from 'components/Items/Items';
 import Footer from 'components/Footer/Footer';
+import ItemsFilter from 'components/ItemsFilter/ItemsFilter';
 
 const Shop = () => {
   return (
@@ -13,6 +14,7 @@ const Shop = () => {
         {/*shop*/}
         <section className="container-xxl mb-5">
           <div className="row align-content-evenly justify-content-around">
+            <ItemsFilter />
             <Items />
           </div>
         </section>
