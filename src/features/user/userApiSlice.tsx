@@ -31,7 +31,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: (formData) => ({
         url: '/users',
         method: 'POST',
-        body: { ...formData },
+        body: formData,
       }),
     }),
     refresh: builder.mutation<ICredentialToken, void>({

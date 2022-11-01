@@ -53,8 +53,6 @@ const SignupForm = () => {
     }
   };
 
-  console.log(formValues);
-
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
