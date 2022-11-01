@@ -9,13 +9,22 @@ const Items = () => {
   return (
     <section className="col-md-12 col-lg-8 col-xl-9">
       {!products.length ? (
-        <div className="d-flex justify-content-center">
-          <div className="spinner-grow text-secondary my-2" role="status">
-            <span className="visually-hidden">Loading...</span>
+        <div>
+          <div className="d-flex justify-content-center">
+            <div className="spinner-grow text-secondary my-2" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
           </div>
+          <h4 className="text-center my-4 mx-4 fw-bold ff-lato-4">
+            The server is starting...
+          </h4>
+          <h5 className="text-center mx-4 ff-lato-4">
+            If after a few seconds it does not load, it is possible that the
+            server in charge of the backend is down :(
+          </h5>
         </div>
       ) : (
-        <ul className="list-unstyled ps-3">
+        <ul className="list-unstyled">
           {products.map((product: IProduct) => (
             <ProductPreview product={product} key={product.id} />
           ))}

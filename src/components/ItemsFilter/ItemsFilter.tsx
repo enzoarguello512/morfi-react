@@ -179,7 +179,7 @@ const ItemsFilter = () => {
                   id="dis-from"
                   placeholder="Min"
                 />
-                <span>-</span>
+                <span> - </span>
                 <label className="visually-hidden" htmlFor="dis-to">
                   maximum-discount
                 </label>
@@ -330,7 +330,7 @@ const ItemsFilter = () => {
                   id="pri-from"
                   placeholder="Min"
                 />
-                <span>-</span>
+                <span> - </span>
                 <label className="visually-hidden" htmlFor="pri-to">
                   price-to
                 </label>
