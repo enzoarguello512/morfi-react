@@ -16,7 +16,7 @@ const SignupForm = () => {
   const navigate = useNavigate();
 
   const defaultAvatar =
-    'https://res.cloudinary.com/enzoarguello512/image/upload/v1667251875/Users/abstract-user-flat-4_zsviri.svg';
+    'https://res.cloudinary.com/enzoarguello512/image/upload/v1667251875/Users/avatar.svg';
 
   const [formValues, setFormValues] = useState({
     email: '',
@@ -26,7 +26,7 @@ const SignupForm = () => {
     address: '',
     age: '',
     phoneNumber: '',
-    image: '',
+    image: null,
   });
   const {
     email,
@@ -48,7 +48,7 @@ const SignupForm = () => {
     } else if (e.target.files[0]) {
       setFormValues({
         ...formValues,
-        image: URL.createObjectURL(e.target.files[0]),
+        image: e.target.files[0],
       });
     }
   };
@@ -79,7 +79,7 @@ const SignupForm = () => {
         address: '',
         age: '',
         phoneNumber: '',
-        image: '',
+        image: null,
       });
       navigate('/');
     } catch (err) {
@@ -273,7 +273,7 @@ const SignupForm = () => {
           <div className="m-0 thumbnail">
             <img
               className="img-rez"
-              src={image ? image : defaultAvatar}
+              src={image ? URL.createObjectURL(image) : defaultAvatar}
               alt="user avatar"
             />
           </div>
