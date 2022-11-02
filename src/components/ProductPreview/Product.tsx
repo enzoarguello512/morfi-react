@@ -13,10 +13,10 @@ const ProductPreview = ({ product }) => {
           </span>
         )}
         {product.promotion &&
-          product.promotion.map((text: string) => (
+          product.promotion.map((text: string, index: number) => (
             <span
               className="badge bg-primary bg-gradient me-1"
-              key={product.id}
+              key={product.id + index} // string + number
             >
               {text}
             </span>
