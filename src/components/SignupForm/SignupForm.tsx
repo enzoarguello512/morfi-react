@@ -95,7 +95,7 @@ const SignupForm = () => {
 
   return (
     <form
-      className="row g-3 needs-validation p-3 register-w-50 m-auto bg-white border border-2 rounded"
+      className="row g-3 needs-validation p-3 register-w-50 m-auto bg-white border border-2 rounded mb-5"
       onSubmit={handleSubmit}
     >
       {/* first name */}
