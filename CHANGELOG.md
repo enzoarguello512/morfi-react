@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/enzoarguello512/api-rest-ecommerce/compare/v0.1.4...v0.1.5) (2022-11-02)
+
+
+### Features
+
+* add @fortawesome/free-regular-svg-icons module. ([c5c7074](https://github.com/enzoarguello512/api-rest-ecommerce/commit/c5c7074c32c810099852bc9b33453e5649f5a3ed))
+* add CartSubtotal component. ([9f0edb1](https://github.com/enzoarguello512/api-rest-ecommerce/commit/9f0edb1631d4a788b7fadc173275f12fbd6e3f16))
+* add ItemBreadcrumb component. ([b8c391f](https://github.com/enzoarguello512/api-rest-ecommerce/commit/b8c391f54ccb96f7c604414c60cbcd1d49aed572))
+* add ItemsFilter component. ([4c44775](https://github.com/enzoarguello512/api-rest-ecommerce/commit/4c447750eeac63a5ed5481802976bf3c921203a4))
+* add ItemsSortBy component. ([55b5974](https://github.com/enzoarguello512/api-rest-ecommerce/commit/55b59747385584113601d1c2a7d1a01cc23a96cc))
+* add mutation to create/end order. ([2a9b9cb](https://github.com/enzoarguello512/api-rest-ecommerce/commit/2a9b9cb5aeb3543fd43f59b2a3d4bdb2b87efbc6))
+* add mutation to delete shopping cart. ([0e75802](https://github.com/enzoarguello512/api-rest-ecommerce/commit/0e75802747d84100daa2a4d3a3fb35409b8ffe49))
+* add query and user profile interface. ([2d24da8](https://github.com/enzoarguello512/api-rest-ecommerce/commit/2d24da8c31bcc0c8532da8fb6ac03d92ab77c316))
+* add thumbnail class. ([6a26c60](https://github.com/enzoarguello512/api-rest-ecommerce/commit/6a26c60b50914c38adbb4a046ef4b947ce33658e))
+* add user card. ([cd1325b](https://github.com/enzoarguello512/api-rest-ecommerce/commit/cd1325b5322bd2b0be07ed34671997db38f4948d))
+* add user profile page. ([01dd91c](https://github.com/enzoarguello512/api-rest-ecommerce/commit/01dd91c538d530c124b3f676cfc2b6e979402e35))
+* add user profile section in navbar. ([49021f7](https://github.com/enzoarguello512/api-rest-ecommerce/commit/49021f7f6b72eaba7bdb8acf78dbf6e984055b7b))
+* optimize login image. ([7fc5dd5](https://github.com/enzoarguello512/api-rest-ecommerce/commit/7fc5dd5b5f268d17b9fde09b2b12d47fd2ac7294))
+* update registry model properties. ([9836368](https://github.com/enzoarguello512/api-rest-ecommerce/commit/9836368355e4b3b2ae5093be868de02da3d82f8b))
+
+
+### Bug Fixes
+
+* add fields to form with the new properties. ([a86dd4f](https://github.com/enzoarguello512/api-rest-ecommerce/commit/a86dd4ff5a575812c71793473588f1a02fa3249b))
+* add interfaces for FormData. ([648ae86](https://github.com/enzoarguello512/api-rest-ecommerce/commit/648ae862889611e02fe21755526af657323ebcba))
+* add logic to CartSubtotal component. ([9d31bf6](https://github.com/enzoarguello512/api-rest-ecommerce/commit/9d31bf6122cd9a15af22db393b749c40413d6010))
+* add responsive to user card. ([9e430ed](https://github.com/enzoarguello512/api-rest-ecommerce/commit/9e430ed6b736597d8e3d420d64c1d08260633467))
+* add user profile protected path. ([7af55bf](https://github.com/enzoarguello512/api-rest-ecommerce/commit/7af55bf7a14288321b3aed9128e9e98b2b4288ad))
+* change form submission format. ([366d9e6](https://github.com/enzoarguello512/api-rest-ecommerce/commit/366d9e66f4d5b051486808a18f57574ef4033abc))
+* formData request. ([be57206](https://github.com/enzoarguello512/api-rest-ecommerce/commit/be57206416ce1fd9b6a3eb579072acabb43af8cb))
+* index misuse. ([60561e8](https://github.com/enzoarguello512/api-rest-ecommerce/commit/60561e85e2448a8207fbe03d1c418c7f1ffb034d))
+* index misuse. ([116d343](https://github.com/enzoarguello512/api-rest-ecommerce/commit/116d3430e4745c3c36e794bff03040f5e3319e49))
+* login form margin. ([88c9679](https://github.com/enzoarguello512/api-rest-ecommerce/commit/88c967951696f49c66bd0e60526869961e28b117))
+* possible wrong request. ([db92f24](https://github.com/enzoarguello512/api-rest-ecommerce/commit/db92f2482f85eaa0c45c0c6da3d7ceba8efff190))
+* replace deleteCart method with updateCart. ([b856901](https://github.com/enzoarguello512/api-rest-ecommerce/commit/b85690199187c69ba31e67810cd36cd6e9bb3ea2))
+* separate code and improve reliability. ([a37cc82](https://github.com/enzoarguello512/api-rest-ecommerce/commit/a37cc8278dfc5f87dc66666ee449a8b282efbc49))
+* submit form and images. ([60f0c61](https://github.com/enzoarguello512/api-rest-ecommerce/commit/60f0c6186af6c167af0f4bcefee6259d238c2287))
+* update message presentation and style. ([fb0d640](https://github.com/enzoarguello512/api-rest-ecommerce/commit/fb0d6403f0adafee9e9bae396ba6ee6a301fc68f))
+
 ### [0.1.4](https://github.com/enzoarguello512/api-rest-ecommerce/compare/v0.1.3...v0.1.4) (2022-09-14)
 
 
