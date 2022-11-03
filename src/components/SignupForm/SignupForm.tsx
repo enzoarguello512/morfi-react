@@ -2,7 +2,7 @@ import { useLoginMutation } from 'features/user/userApiSlice';
 import { setCredentials } from 'features/user/userSlice';
 import { useSignupMutation } from 'features/user/userApiSlice';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'hooks/preTyped';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ICredentialToken } from 'common/types/credentials.req.interface';
@@ -12,7 +12,7 @@ const SignupForm = () => {
   const [signup, { isLoading }] = useSignupMutation();
   const [login] = useLoginMutation();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const defaultAvatar =

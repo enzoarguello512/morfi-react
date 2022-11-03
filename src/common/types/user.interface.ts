@@ -5,11 +5,11 @@ export interface IUser {
   email: string;
   firstName: string;
   permissionLevel: number;
-  cart?: ICart;
+  cart: ICart;
 }
 
 export interface IUserState {
-  user: IUser | null;
+  user: IUser;
   token: string;
 }
 
