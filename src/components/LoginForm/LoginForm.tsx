@@ -34,11 +34,8 @@ const LoginForm = () => {
       }).unwrap();
       dispatch(setCredentials({ ...payload }));
       const user: IUser = decryptJwt(payload.accessToken);
-      if (user.cart) {
-        const payload: ICart = await getCart(
-          //In the first load of the application user.cart is equal to the id(string) of mongoose or an empty string ("").
-          user.cart as unknown as string
-        ).unwrap();
+      if (user.cart.id) {
+        const payload: ICart = await getCart(user.cart.id).unwrap();
         dispatch(setCart(payload));
       }
       setEmail('');

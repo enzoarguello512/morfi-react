@@ -210,7 +210,7 @@ const Navbar = () => {
                     <FontAwesomeIcon icon={faShoppingCart} className="fs-4" />
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary h-pointer">
                       <span>
-                        {user.cart.products ? user.cart?.products?.length : 0}
+                        {user.cart.products ? user.cart.products.length : 0}
                       </span>
                       <span className="visually-hidden">cart</span>
                     </span>
@@ -225,14 +225,14 @@ const Navbar = () => {
                       />
                       <span>
                         Cart (
-                        {user.cart.products ? user.cart?.products?.length : 0})
+                        {user.cart.products ? user.cart.products.length : 0})
                       </span>
                     </button>
                     {/*<FontAwesomeIcon icon={faShoppingCart} className="fs-4" />
                     <span>Cart</span>
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary h-pointer">
                       <span>
-                        {user.cart.products ? user.cart?.products?.length : 0}
+                        {user.cart.products ? user.cart.products.length : 0}
                       </span>
                       <span className="visually-hidden">cart</span>
                     </span>*/}
