@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 
-const getLocalValue = (key: string, initValue: string | boolean | Function) => {
+export const getLocalValue = (
+  key: string,
+  initValue: string | boolean | Function | undefined = undefined
+) => {
   //SSR Next.js
   if (typeof window === 'undefined') return initValue;
 
