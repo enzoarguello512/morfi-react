@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setCart, setCredentials } from 'features/user/userSlice';
 import { useLoginMutation, userApiSlice } from 'features/user/userApiSlice';
@@ -10,19 +10,26 @@ import { ILocation } from 'common/types/location.interface';
 import { ICredentialToken } from 'common/types/credentials.req.interface';
 import { ICart } from 'common/types/cart.interface';
 import { IUser } from 'common/types/user.interface';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
   const location: ILocation = useLocation();
+  const navigate = useNavigate();
   const from: string = location.state?.from?.pathname || '/';
 
   const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useAppDispatch();
+  const [getCart] = userApiSlice.endpoints.getCart.useLazyQuery();
 
-  const [getCart, { isLoading: isQueryLoading }] =
-    userApiSlice.endpoints.getCart.useLazyQuery();
+  const [persist, setPersist] = useLocalStorage('persist', true);
+
+  const handlePersistence = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPersist(!persist);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,6 +110,26 @@ const LoginForm = () => {
         />
       </div>
       {/* password */}
+
+      <div className="col-md-11 mx-auto mb-3 mt-2">
+        <div className="form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="persistSession"
+            aria-describedby="persistSession-feedback"
+            required={true}
+            onChange={handlePersistence}
+            checked={persist}
+          />
+          <label className="form-check-label" htmlFor="persistSession">
+            Keep me signed in
+          </label>
+          <div id="persistSession-feedback" className="invalid-feedback">
+            Optional to keep the session started
+          </div>
+        </div>
+      </div>
 
       {/* login btn */}
       <div className="col-12 mb-3">
