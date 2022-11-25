@@ -11,6 +11,7 @@ export interface IUser {
 export interface IUserState {
   user: IUser;
   token: string;
+  loadingSession: boolean;
 }
 
 export interface IUserProfile {
