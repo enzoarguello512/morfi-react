@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Components
 import RequireAuth from 'components/RequireAuth/RequireAuth';
-//import PersistLogin from 'components/PersistLogin/PersistLogin';
+import PersistLogin from 'components/PersistLogin/PersistLogin';
 
 // Pages
 import Login from 'pages/Login/Login';
@@ -21,25 +21,25 @@ import { ERoles } from 'common/types/common.roles.enum';
 function App() {
   return (
     <Routes>
-      {/*<Route path="/" element={<PersistLogin />}>*/}
-      {/* public routes */}
-      <Route index element={<Shop />} />
+      <Route path="/" element={<PersistLogin />}>
+        {/* public routes */}
+        <Route index element={<Shop />} />
 
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
 
-      {/* protected routes */}
-      <Route element={<RequireAuth allowedRoles={ERoles.FREE} />}>
-        <Route path="chat" element={<Chat />} />
-        <Route path="cart" element={<Cart />} />
-        <Route path="profile" element={<UserProfile />} />
+        {/* protected routes */}
+        <Route element={<RequireAuth allowedRoles={ERoles.FREE} />}>
+          <Route path="chat" element={<Chat />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="profile" element={<UserProfile />} />
+        </Route>
+
+        <Route path="product/:productId" element={<Product />} />
+
+        {/* Catch all - replace with 404 component if you want */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
-
-      <Route path="product/:productId" element={<Product />} />
-
-      {/* Catch all - replace with 404 component if you want */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-      {/*</Route>*/}
     </Routes>
   );
 }
