@@ -36,7 +36,9 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 403) {
+  // In case you need to get a new access token or the refresh token has expired (which will cause the session to close - Log Out)
+  // @ts-expect-error
+  if (result?.error?.originalStatus === 403) {
     // send refresh token to get new access token
     const refreshResult: QueryReturnValue<
       { accessToken?: string },

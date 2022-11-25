@@ -1,50 +1,52 @@
-//import { Outlet } from 'react-router-dom';
-//import { useCallback, useEffect } from 'react';
-//import useLocalStorage from 'hooks/useLocalStorage';
-//import { useDispatch, useSelector } from 'react-redux';
-//import { selectCurrentToken, setCredentials } from 'features/auth/authSlice';
-//import { useRefreshMutation } from 'features/auth/authApiSlice';
-//import { IUser } from 'common/types/user.interface';
-//import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { Outlet } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import useLocalStorage from 'hooks/useLocalStorage';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectCurrentToken,
+  setCredentials,
+  setLoadingSession,
+} from 'features/user/userSlice';
+import { useRefreshMutation } from 'features/user/userApiSlice';
+import LoadingPage from 'components/LoadingPage/LoadingPage';
 
-//const PersistLogin = () => {
-//const [refresh, { isLoading }] = useRefreshMutation();
-//const token = useSelector(selectCurrentToken);
-//const [persist] = useLocalStorage('persist', false);
-//const dispatch = useDispatch();
+const PersistLogin = () => {
+  const [refresh, { isLoading }] = useRefreshMutation();
+  const token = useSelector(selectCurrentToken);
+  const [persist] = useLocalStorage('persist', false);
+  const isUnitialized = useRef(true);
+  const dispatch = useDispatch();
 
-//const verifyRefreshToken = useCallback(async () => {
-//try {
-//const payload = await refresh().unwrap();
-//const decodedUser: IUser = jwtDecode<JwtPayload>(payload?.accessToken);
-//const user = {
-//email: decodedUser.email,
-//firstName: decodedUser.firstName,
-//permissionLevel: decodedUser.permissionLevel,
-//};
-//dispatch(setCredentials({ ...payload, user }));
-//} catch (err) {
-//console.error(err);
-//}
+  useEffect(() => {
+    const verifyRefreshToken = async () => {
+      try {
+        const payload = await refresh().unwrap();
+        dispatch(setCredentials({ ...payload }));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        dispatch(setLoadingSession(false));
+      }
+    };
 
-//if (!refresh && persist) verifyRefreshToken();
-//}, []);
+    //Avoids unwanted call to verifyRefreshToken
+    if (!token && persist && isUnitialized.current) {
+      isUnitialized.current = false;
+      verifyRefreshToken();
+    }
+  }, []);
 
-//useEffect(() => {
-//verifyRefreshToken();
-//Avoids unwanted call to verifyRefreshToken
-//}, []);
+  return (
+    <>
+      {!persist ? (
+        <Outlet />
+      ) : isLoading ? (
+        <LoadingPage message={'Loading session'} />
+      ) : (
+        <Outlet />
+      )}
+    </>
+  );
+};
 
-//useEffect(() => {
-//console.log(`isLoading: ${isLoading}`);
-//console.log(`aT: ${JSON.stringify(token)}`);
-//}, [isLoading, token]);
-
-//return (
-//<>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
-//);
-//};
-
-//export default PersistLogin;
-//
-export {};
+export default PersistLogin;
