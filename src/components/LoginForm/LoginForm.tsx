@@ -27,11 +27,13 @@ const LoginForm = () => {
 
   const [persist, setPersist] = useLocalStorage('persist', true);
 
-  const handlePersistence = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePersistence = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setPersist(!persist);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -62,7 +64,7 @@ const LoginForm = () => {
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setEmail(e.target.value);
 
-  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setPassword(e.target.value);
 
   const content = isLoading ? (
@@ -111,6 +113,7 @@ const LoginForm = () => {
       </div>
       {/* password */}
 
+      {/* persist session */}
       <div className="col-md-11 mx-auto mb-3 mt-2">
         <div className="form-check">
           <input
@@ -118,7 +121,6 @@ const LoginForm = () => {
             className="form-check-input"
             id="persistSession"
             aria-describedby="persistSession-feedback"
-            required={true}
             onChange={handlePersistence}
             checked={persist}
           />
@@ -130,6 +132,7 @@ const LoginForm = () => {
           </div>
         </div>
       </div>
+      {/* persist session */}
 
       {/* login btn */}
       <div className="col-12 mb-3">
