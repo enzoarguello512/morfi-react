@@ -1,12 +1,22 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import { selectCurrentToken, selectCurrentUser } from 'features/user/userSlice';
+import {
+  selectCurrentToken,
+  selectCurrentUser,
+  selectLoadingSession,
+} from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/preTyped';
 import { IUser } from 'common/types/user.interface';
+import LoadingPage from 'components/LoadingPage/LoadingPage';
 
 const RequireAuth = ({ allowedRoles }) => {
   const user: IUser = useAppSelector(selectCurrentUser);
   const token: string = useAppSelector(selectCurrentToken);
+  const loadingSession: boolean = useAppSelector(selectLoadingSession);
   const location = useLocation();
+
+  if (loadingSession) {
+    return <LoadingPage message={'Loading session'} />;
+  }
 
   // If the user has sufficient permissions let him/her through
   return user?.permissionLevel & allowedRoles ? (
