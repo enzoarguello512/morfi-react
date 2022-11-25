@@ -22,20 +22,24 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<PersistLogin />}>
-        {/* public routes */}
+        {/* Public routes */}
         <Route index element={<Shop />} />
 
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
 
-        {/* protected routes */}
+        {/* Protected routes */}
         <Route element={<RequireAuth allowedRoles={ERoles.FREE} />}>
           <Route path="chat" element={<Chat />} />
           <Route path="cart" element={<Cart />} />
           <Route path="profile" element={<UserProfile />} />
         </Route>
 
+        {/*Product detail page*/}
         <Route path="product/:productId" element={<Product />} />
+
+        {/*Authenticated but without authorization to visit the route.*/}
+        <Route path="unauthorized" element={<Navigate to="/" replace />} />
 
         {/* Catch all - replace with 404 component if you want */}
         <Route path="*" element={<Navigate to="/" replace />} />
