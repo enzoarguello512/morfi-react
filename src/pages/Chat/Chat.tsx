@@ -1,15 +1,18 @@
 import ChatChannel from '../../components/ChatChannel/ChatChannel';
 import React from 'react';
 import Navbar from '../../components/Navbar/Navbar';
+import Footer from 'components/Footer/Footer';
 
 const Chat = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="container">
-        <h1 className="text-center mt-5 pt-4">Centro de Mensajes</h1>
-        <ChatChannel />
-      </div>
+      <main className="mt-11 ff-lato-4">
+        <section className="container-xxl mb-5">
+          <ChatChannel />
+        </section>
+      </main>
+      <Footer />
     </React.Fragment>
   );
 };

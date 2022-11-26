@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { socket } from '../../services/Socket';
 import moment from 'moment';
-
-const { data: dataUser } = {
-  data: {
-    email: 'elduro@gmail.com',
-  },
-};
+import { IUser } from 'common/types/user.interface';
+import { useAppSelector } from 'hooks/preTyped';
+import { selectCurrentUser } from 'features/user/userSlice';
 
 const ChatChannel = () => {
   //const { data: messages, status } = useAppSelector((state) => state.messages);
@@ -14,15 +11,17 @@ const ChatChannel = () => {
   const [messages, setMessages] = useState([]);
   const [status, setStatus] = useState('idle');
 
+  const user: IUser = useAppSelector(selectCurrentUser);
+
   const [formValues, setFormValues] = useState({
-    email: dataUser ? dataUser.email : '',
+    email: user ? user.email : '',
     text: '',
   });
   const { email, text } = formValues;
 
   useEffect(() => {
     // if (dataUser && status === 'idle') {
-    socket.emit('get messages', dataUser.email);
+    socket.emit('get messages', user.email);
     socket.on('messages', (data) => {
       // dispatch(setMessages({ data }));
       setMessages(data);
@@ -55,43 +54,36 @@ const ChatChannel = () => {
   };
 
   return (
-    <div className="m-5 p-5 bg-light-2">
-      <h1 className="text-primary pt-3 mb-3">Message center</h1>
-      <div className="w-50 mb-3">
-        <label className="form-label" htmlFor="email">
-          Your email
-        </label>
-        <input
-          className="form-control"
-          type="email"
-          name="email"
-          placeholder="user@gmail.com"
-          value={email}
-          onChange={handleChange}
-        />
+    <div className="m-5 px-5 bg-light-2">
+      <h1 className="text-primary text-center pt-3 mb-3">Message center</h1>
+      <div className="text-center">
+        Logged in as{' '}
+        <span className="badge bg-primary bg-gradient me-1">{email}</span>
       </div>
-      <hr />
-      <ul className="list-unstyled my-4">
-        {messages.length === 0 ? (
-          <li className="text-center">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </li>
-        ) : (
-          messages.map((msg) => (
-            <li key={msg.id}>
-              <span className="text-primary fw-bold">{msg.user.email}</span>
-              <small className="text-danger">
-                {moment(msg.createdAt).format('DD/MM/YYYY hh:mm:ss')}
-              </small>
-              <span className="text-success">{msg.text}</span>
+      <div className="bg-light">
+        <hr />
+        <ul className="list-unstyled h-400px">
+          {messages.length === 0 ? (
+            <li className="d-flex align-items-center justify-content-center h-100">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
             </li>
-          ))
-        )}
-      </ul>
-      <hr />
-      <form className="row align-items-end w-50" onSubmit={handleSubmit}>
+          ) : (
+            messages.map((msg) => (
+              <li key={msg.id}>
+                <span className="text-primary fw-bold">{msg.user.email}</span>
+                <small className="text-danger">
+                  {moment(msg.createdAt).format('DD/MM/YYYY hh:mm:ss')}
+                </small>
+                <span className="text-success">{msg.text}</span>
+              </li>
+            ))
+          )}
+        </ul>
+        <hr />
+      </div>
+      <form className="row align-items-end" onSubmit={handleSubmit}>
         <div className="col-9">
           <label className="form-label" htmlFor="text">
             Your message
