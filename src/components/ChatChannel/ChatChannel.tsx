@@ -13,18 +13,22 @@ import { IMessage } from 'common/types/message.interface';
 import { toast } from 'react-toastify';
 
 const ChatChannel = () => {
+  // Selectors
   const user: IUser = useAppSelector(selectCurrentUser);
   const messages: Array<IMessage> = useAppSelector(selectMessages);
-  const dispatch = useAppDispatch();
 
+  const dispatch = useAppDispatch();
+  const [isLoading, setLoading] = useState(false); // In charge of managing the loading status of the "Send" button
+
+  // Refs
   const isUnitialized = useRef(true);
   const loadedMessages = useRef(false);
-  const chatBoxRef = useRef<HTMLUListElement>(null);
 
-  const [messageText, setMessageText] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  // Messages
+  const chatBoxRef = useRef<HTMLUListElement>(null); // In charge of managing the scroll of the message box
+  const [messageText, setMessageText] = useState(''); // Input
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (messageText && !isLoading) {
       socket.emit('new message', user.id, messageText);
@@ -36,35 +40,44 @@ const ChatChannel = () => {
   };
 
   useEffect(() => {
+    // To prevent duplicate errors with Socket.io
     if (isUnitialized.current === true) {
       isUnitialized.current = false;
+
+      // Event handlers
       socket.emit('get messages', user.id);
       socket.on('messages', (msgs: Array<IMessage>) => {
         dispatch(setMessages(msgs));
         loadedMessages.current = true;
       });
       socket.on('messages error', (err) => {
-        toast.warning(err.message);
+        toast.error(err.message);
       });
       socket.on('new message saved', (msgs: Array<IMessage>) => {
         dispatch(addMessage(msgs));
         setLoading(false);
       });
-      if (loadedMessages.current && messages.length === 0) {
-        socket.emit('new message', user.id, 'welcomeMessage');
-      }
     }
-  }, [dispatch, messages.length, user.id]);
 
+    // This is responsible for generating a welcome message to the user (only if it's the first time!)
+    if (loadedMessages.current && messages.length === 0) {
+      socket.emit('new message', user.id, 'welcomeMessage');
+    }
+  }, [dispatch, messages, user.id]);
+
+  useEffect(() => {});
+
+  // This is responsible for scrolling to adjust to the new messages received
   useEffect(() => {
     if (chatBoxRef.current && messages.length !== 0) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
   }, [messages]);
 
+  // Box in charge of controlling all messages
   const MessageBox =
     // We wait for the messages to load
-    isUnitialized.current === true && messages.length === 0 ? (
+    isUnitialized.current === true || messages.length === 0 ? (
       <li className="d-flex align-items-center justify-content-center h-100">
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
