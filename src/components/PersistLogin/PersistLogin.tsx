@@ -13,6 +13,7 @@ import LoadingPage from 'components/LoadingPage/LoadingPage';
 import { IUser } from 'common/types/user.interface';
 import { decryptJwt } from 'util/decryptJwt';
 import { ICart } from 'common/types/cart.interface';
+import { useAppDispatch } from 'hooks/preTyped';
 
 const PersistLogin = () => {
   const [refresh, { isLoading }] = useRefreshMutation();
@@ -22,7 +23,7 @@ const PersistLogin = () => {
   const persist = getLocalValue('persist');
 
   const isUnitialized = useRef(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const verifyRefreshToken = async () => {
