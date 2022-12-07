@@ -74,6 +74,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+
+    // Order
+    ///////////////////////////
     createOrder: builder.mutation({
       query: ({ userId, cartId }) => ({
         url: `/orders/${userId}/cart/${cartId}`,
