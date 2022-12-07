@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TRootState } from 'app/store';
 import { ICart } from 'common/types/cart.interface';
 import { ICredentialToken } from 'common/types/credentials.req.interface';
+import { IMessage } from 'common/types/message.interface';
 import { IUserState } from 'common/types/user.interface';
 import { decryptJwt } from 'util/decryptJwt';
 
@@ -36,6 +37,12 @@ const userSlice = createSlice({
     setLoadingSession: (state, action: PayloadAction<boolean>) => {
       state.loadingSession = action.payload;
     },
+    setMessages: (state, action: PayloadAction<Array<IMessage>>) => {
+      state.user.messages = action.payload;
+    },
+    addMessage: (state, action: PayloadAction<Array<IMessage>>) => {
+      state.user.messages = state.user.messages.concat(action.payload);
+    },
   },
 });
 
@@ -45,6 +52,8 @@ export const {
   setCart,
   removeCartProduct,
   setLoadingSession,
+  setMessages,
+  addMessage,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -55,3 +64,4 @@ export const selectProducsInCart = (state: TRootState) =>
 export const selectCurrentToken = (state: TRootState) => state.user.token;
 export const selectLoadingSession = (state: TRootState) =>
   state.user.loadingSession;
+export const selectMessages = (state: TRootState) => state.user.user.messages;
