@@ -1,4 +1,5 @@
 import { ICart } from './cart.interface';
+import { IMessage } from './message.interface';
 
 export interface IUser {
   id: string;
@@ -6,6 +7,7 @@ export interface IUser {
   firstName: string;
   permissionLevel: number;
   cart: ICart;
+  messages: Array<IMessage>;
 }
 
 export interface IUserState {

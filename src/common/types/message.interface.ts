@@ -3,8 +3,8 @@ export interface IMessage {
   user: string;
   text: string;
   type: TMessageType;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type TMessageType = 'user' | 'server';

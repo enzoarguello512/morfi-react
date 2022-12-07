@@ -9,6 +9,7 @@ export function decryptJwt(token: string): IUser {
     firstName: decodedUser.firstName,
     permissionLevel: decodedUser.permissionLevel,
     cart: decodedUser?.cart,
+    messages: decodedUser.messages,
   };
   return user;
 }
