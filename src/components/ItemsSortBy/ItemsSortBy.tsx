@@ -1,6 +1,6 @@
 const ItemsSortBy = () => {
   return (
-    <div className="d-none d-lg-block col-lg-6">
+    <div className="d-none d-lg-block col-lg-6 offset-lg-6">
       <div className="row align-items-center p-3">
         <div className="col-lg-8 text-end">
           <label className="form-label m-0" htmlFor="sortby">
