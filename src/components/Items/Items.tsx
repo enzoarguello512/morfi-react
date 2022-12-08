@@ -15,14 +15,6 @@ const Items = () => {
               <span className="visually-hidden">Loading...</span>
             </div>
           </div>
-          <h4 className="text-center my-4 mx-4 fw-bold ff-lato-4">
-            The server is starting...
-          </h4>
-          <h5 className="text-center mx-4 ff-lato-4">
-            If after a few minutes it does not load (it is a free tier, it can
-            take up to 5 minutes), it is possible that the server in charge of
-            the backend is down :(
-          </h5>
         </div>
       ) : (
         <ul className="list-unstyled">
