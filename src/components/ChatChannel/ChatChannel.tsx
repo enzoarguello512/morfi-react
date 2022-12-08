@@ -21,8 +21,8 @@ const ChatChannel = () => {
   const [isLoading, setLoading] = useState(false); // In charge of managing the loading status of the "Send" button
 
   // Refs
-  const isUnitialized = useRef(true);
-  const loadedMessages = useRef(false);
+  const isUnitialized = useRef(true); // To avoid socket.io errors
+  const loadedMessages = useRef(false); // To keep track if it is the first time the user sees the chat
 
   // Messages
   const chatBoxRef = useRef<HTMLUListElement>(null); // In charge of managing the scroll of the message box
@@ -64,8 +64,6 @@ const ChatChannel = () => {
       socket.emit('new message', user.id, 'welcomeMessage');
     }
   }, [dispatch, messages, user.id]);
-
-  useEffect(() => {});
 
   // This is responsible for scrolling to adjust to the new messages received
   useEffect(() => {
