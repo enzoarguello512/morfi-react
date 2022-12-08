@@ -10,7 +10,7 @@ import { IUserFormData } from 'common/types/user.interface';
 
 const SignupForm = () => {
   const [signup, { isLoading }] = useSignupMutation();
-  const [login] = useLoginMutation();
+  const [login, { isLoading: isLoadingLogin }] = useLoginMutation();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ const SignupForm = () => {
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
+    rpassword: '',
     firstName: '',
     lastName: '',
     address: '',
@@ -31,6 +32,7 @@ const SignupForm = () => {
   const {
     email,
     password,
+    rpassword,
     firstName,
     lastName,
     address,
@@ -58,6 +60,11 @@ const SignupForm = () => {
   ): Promise<void> => {
     e.preventDefault();
 
+    if (password !== rpassword) {
+      toast.warning('Passwords do not match');
+      return;
+    }
+
     const formData = new FormData() as IUserFormData;
     Object.entries(formValues).forEach((formElement) => {
       formData.append(formElement[0], formElement[1]);
@@ -65,7 +72,10 @@ const SignupForm = () => {
 
     try {
       await signup(formData).unwrap();
-      toast.success('Successful registration');
+      toast.success(
+        'Successful registration! - Redirecting, please wait a few seconds...',
+        { autoClose: 8000 }
+      );
       const payload: ICredentialToken = await login({
         email,
         password,
@@ -74,6 +84,7 @@ const SignupForm = () => {
       setFormValues({
         email: '',
         password: '',
+        rpassword: '',
         firstName: '',
         lastName: '',
         address: '',
@@ -193,6 +204,29 @@ const SignupForm = () => {
         </div>
       </div>
       {/* password */}
+
+      {/* rpassword */}
+      <div className="col-sm-12">
+        <label htmlFor="rpassword" className="form-label">
+          Repeat password
+        </label>
+        <input
+          type="password"
+          className="form-control"
+          id="rpassword"
+          onChange={handleChange}
+          value={rpassword}
+          placeholder="Repeat password"
+          aria-describedby="rpassword-feedback"
+          autoComplete="current-rpassword"
+          required
+          name="rpassword"
+        />
+        <div id="rpassword-feedback" className="invalid-feedback">
+          Please provide a valid password
+        </div>
+      </div>
+      {/* rpassword */}
 
       {/* phone number */}
       <div className="col-sm-12">
@@ -332,13 +366,8 @@ const SignupForm = () => {
 
       {/* sign up btn */}
       <div className="col-12">
-        <button
-          className="btn btn-primary d-block mx-auto w-50"
-          disabled={
-            !firstName || !lastName || !email || !password ? true : false
-          }
-        >
-          {isLoading ? (
+        <button className="btn btn-primary d-block mx-auto w-50">
+          {isLoading || isLoadingLogin ? (
             <div className="spinner-border text-center fs-1" role="status">
               <span className="visually-hidden">Loading...</span>
             </div>
