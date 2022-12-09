@@ -12,7 +12,7 @@ const ProductPreview = ({ product }) => {
             ${product.price.toFixed(2)}
           </span>
         )}
-        {product.promotion &&
+        {product.promotion[0] !== 'none' &&
           product.promotion.map((text: string, index: number) => (
             <span
               className="badge bg-primary bg-gradient me-1"
