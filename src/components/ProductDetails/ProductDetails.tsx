@@ -1,8 +1,5 @@
 import { selectCurrentUser, setCart } from 'features/user/userSlice';
-import {
-  selectProductById,
-  useListQuery,
-} from 'features/products/productsApiSlice';
+import { useReadByIdQuery } from 'features/products/productsApiSlice';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMaybeAddToCartMutation } from 'features/user/userApiSlice';
@@ -11,21 +8,23 @@ import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
 import { IUser } from 'common/types/user.interface';
 import { IProduct } from 'common/types/product.interface';
 import { ICart } from 'common/types/cart.interface';
+import { selectProductById } from 'features/products/productsSlice';
 
 const ProductDetails = () => {
-  const { isLoading: isQueryLoading } = useListQuery();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const { productId } = useParams();
+  const {
+    data: product,
+    isLoading: isQueryLoading,
+    isError,
+    isFetching,
+  } = useReadByIdQuery(productId);
   const [count, setCount] = useState(1);
   const user: IUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   const [addToCart, { isLoading }] = useMaybeAddToCartMutation();
-
-  const product: IProduct = useAppSelector((state) =>
-    selectProductById(state, String(productId))
-  );
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const handleAddToCart = async (): Promise<void> => {
     if (user) {
@@ -73,20 +72,16 @@ const ProductDetails = () => {
     }
   };
 
-  if (!product && !isQueryLoading) {
-    return (
-      <section>
-        <h2>Product not found!</h2>
-      </section>
-    );
-  }
-
-  return isQueryLoading ? (
+  return isQueryLoading || isFetching ? (
     <div className="d-flex justify-content-center align-items-center min-h-400px">
       <div className="spinner-border text-center" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
     </div>
+  ) : isError ? (
+    <section>
+      <h2>Product not found!</h2>
+    </section>
   ) : (
     <article className="row min-h-400px justify-content-center">
       <div className="col-12 col-md-10 col-xl-5 max-h-400px">
