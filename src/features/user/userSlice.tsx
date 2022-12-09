@@ -58,9 +58,9 @@ export const {
 
 export default userSlice.reducer;
 
-export const selectCurrentUser = (state: TRootState) => state?.user?.user;
+export const selectCurrentUser = (state: TRootState) => state.user.user;
 export const selectProducsInCart = (state: TRootState) =>
-  state?.user?.user?.cart?.products;
+  state.user.user.cart?.products;
 export const selectCurrentToken = (state: TRootState) => state.user.token;
 export const selectLoadingSession = (state: TRootState) =>
   state.user.loadingSession;
