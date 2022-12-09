@@ -10,12 +10,9 @@ import { Provider } from 'react-redux';
 
 // Router
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { productApiSlice } from 'features/products/productsApiSlice';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-store.dispatch(productApiSlice.endpoints.list.initiate());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
