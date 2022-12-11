@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/enzoarguello512/api-rest-ecommerce/compare/v0.1.5...v0.2.0) (2022-12-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* create custom filters to be used according to the backedend model.
+* restructure Items component and move api call.
+* switch to regular endpoints in product api.
+* add state(redux) to ChatChannel component.
+
+### Features
+
+* add IErrorResponse interface. ([f3f63c2](https://github.com/enzoarguello512/api-rest-ecommerce/commit/f3f63c2738415e350b77e0e59cccb06d6cee5499))
+* add IProductFiltersResponse and IProductState interface. ([c251e39](https://github.com/enzoarguello512/api-rest-ecommerce/commit/c251e39a110bc78973821230c33c80401299acf0))
+* add LoadingPage component. ([24e6c2d](https://github.com/enzoarguello512/api-rest-ecommerce/commit/24e6c2df89ad259cbdd27b5e139b1e5e03bf476d))
+* add loadingSession action. ([3114cf0](https://github.com/enzoarguello512/api-rest-ecommerce/commit/3114cf072ffb14e70811e640b15448b08e987690))
+* add login state to RequireAuth component. ([bc0aa23](https://github.com/enzoarguello512/api-rest-ecommerce/commit/bc0aa235e6dc30fc06a6fe3dbc21290c3a9a7aa9))
+* add module "query-string". ([f9a048d](https://github.com/enzoarguello512/api-rest-ecommerce/commit/f9a048d277abf61a512a9a083ff1f7eb8e4fe17a))
+* add product slice. ([b72b758](https://github.com/enzoarguello512/api-rest-ecommerce/commit/b72b758ebabdbb065c67375b39e4f3deb7f09734))
+* add selectors and new reducers. ([e146647](https://github.com/enzoarguello512/api-rest-ecommerce/commit/e14664730c59ca4e44b12eb5e323bee7948f3228))
+* add state(redux) to ChatChannel component. ([1849db7](https://github.com/enzoarguello512/api-rest-ecommerce/commit/1849db7d5e1e93ee2572f9572daea9956c026b3a))
+* added message interface. ([95e9b64](https://github.com/enzoarguello512/api-rest-ecommerce/commit/95e9b6484f3c9a1c7a9c631c8c16c629340a692a))
+* create custom filters to be used according to the backedend model. ([b1e06b0](https://github.com/enzoarguello512/api-rest-ecommerce/commit/b1e06b0d476678fbbe100ce16308b789ab02c33c))
+* split filters component into "SearchBox". ([32cd521](https://github.com/enzoarguello512/api-rest-ecommerce/commit/32cd521312d9bd901f875603ccae8770815c62a5))
+
+
+### Bug Fixes
+
+* add comments. ([9826350](https://github.com/enzoarguello512/api-rest-ecommerce/commit/98263506e7a375c47b6a2754ff636237a7e9f873))
+* add field to repeat password. ([75b98dc](https://github.com/enzoarguello512/api-rest-ecommerce/commit/75b98dc897f905048ea003ae47c9d8f5aa8db51c))
+* add initial persistence switch and sort code. ([ed4251d](https://github.com/enzoarguello512/api-rest-ecommerce/commit/ed4251dd612bbd7752f74ab24460f83afd24d3c6))
+* add new notification and timeout. ([5ff53ec](https://github.com/enzoarguello512/api-rest-ecommerce/commit/5ff53ecdd1734120186dd47daee9e9649ccafb70))
+* add new search failed message and fix render errors. ([b995653](https://github.com/enzoarguello512/api-rest-ecommerce/commit/b995653ca106cf09273ee59ee95de39368434e60))
+* add offset to replace breadcrumb. ([bb69d2d](https://github.com/enzoarguello512/api-rest-ecommerce/commit/bb69d2d534065fefcbc2db707d7c459c25c99fae))
+* add order and persistence switch. ([858448e](https://github.com/enzoarguello512/api-rest-ecommerce/commit/858448eb46ae51a1cb6f93c5e4583cd8a9da07f6))
+* add path "unauthorized" and comments. ([07bd58a](https://github.com/enzoarguello512/api-rest-ecommerce/commit/07bd58ae59dcfb1eea7da5729c78f8dcb0b5285c))
+* add redux selectors and styles. ([021984b](https://github.com/enzoarguello512/api-rest-ecommerce/commit/021984bd32672fb74d12ac0ef2ad8003bbe13faa))
+* add types. ([e6af10f](https://github.com/enzoarguello512/api-rest-ecommerce/commit/e6af10f270467ce3b1989feb390dec1e74727aa3))
+* api and authentication persistence component. ([ad6c364](https://github.com/enzoarguello512/api-rest-ecommerce/commit/ad6c36452f7ece6d67a6d6703ee6172bde4a06a6))
+* api call and errors. ([8447c16](https://github.com/enzoarguello512/api-rest-ecommerce/commit/8447c16d75ed7bf967bef9869871a0310288bb7b))
+* correct api slice name. ([f9760b6](https://github.com/enzoarguello512/api-rest-ecommerce/commit/f9760b68963621f04b27db0bf4a9a2c1e4636752))
+* empty shopping cart error. ([af1a153](https://github.com/enzoarguello512/api-rest-ecommerce/commit/af1a153a0e8e00bdfd5f3234c0cbb72e3c1d5bc6))
+* move loading message between components. ([37a4a7d](https://github.com/enzoarguello512/api-rest-ecommerce/commit/37a4a7d3eb880cf1e47d30d659f33022b523d56b))
+* prevent the "none" label from being displayed. ([ff339f8](https://github.com/enzoarguello512/api-rest-ecommerce/commit/ff339f8c4178a01a9f15202465ac5e867c8ae37c))
+* re-add the persistence component. ([dec00f0](https://github.com/enzoarguello512/api-rest-ecommerce/commit/dec00f0e8fa243148c08118d48bfbb2851de9382))
+* remove breadcrumb component. ([332135e](https://github.com/enzoarguello512/api-rest-ecommerce/commit/332135eefe5ae18d778a8f1cb26db199b46ec73d))
+* remove images and upload to cloudinary. ([07d5366](https://github.com/enzoarguello512/api-rest-ecommerce/commit/07d53662eab8607f6158497475296d37238a6f5a))
+* remove unused operators. ([fc6b5e7](https://github.com/enzoarguello512/api-rest-ecommerce/commit/fc6b5e7473de16c7041b1cc192ee4e1ebeddc01a))
+* restructure Items component and move api call. ([ccd15ae](https://github.com/enzoarguello512/api-rest-ecommerce/commit/ccd15ae648fc78d7b0c4f441f852933bd8098f16))
+* solve keys error and modify loading message. ([11b36a8](https://github.com/enzoarguello512/api-rest-ecommerce/commit/11b36a8a36f15f8ffe477d84a6819d1150447e9f))
+* switch to regular endpoints in product api. ([c0c5a29](https://github.com/enzoarguello512/api-rest-ecommerce/commit/c0c5a296b641e98c8c872767cf99c0191e223bb9))
+* UI and signup dispatch. ([4986902](https://github.com/enzoarguello512/api-rest-ecommerce/commit/4986902e1a4c9323b12b212d86a11085fd000fae))
+* update cart response. ([aefddc3](https://github.com/enzoarguello512/api-rest-ecommerce/commit/aefddc3d1599ae7db8f06cec71b203b998554f87))
+* update dispatch hook. ([6938041](https://github.com/enzoarguello512/api-rest-ecommerce/commit/6938041adaadb5fd1e882603d834fb8cbd7df432))
+* update filter interface. ([0f9ada6](https://github.com/enzoarguello512/api-rest-ecommerce/commit/0f9ada67add858f58b5f4c1977db10a81d12dd5a))
+* update message format to match backend. ([f7efd0a](https://github.com/enzoarguello512/api-rest-ecommerce/commit/f7efd0a2160e7108b7a4f3a754aae626aa6321ea))
+
 ### [0.1.5](https://github.com/enzoarguello512/api-rest-ecommerce/compare/v0.1.4...v0.1.5) (2022-11-02)
 
 
