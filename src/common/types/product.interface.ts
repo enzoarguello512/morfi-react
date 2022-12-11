@@ -44,3 +44,27 @@ export interface IProductsAdapter {
 export interface IProductState {
   products: Array<IProduct>;
 }
+
+export type SortOrder = -1 | 1 | 'asc' | 'ascending' | 'desc' | 'descending';
+
+export interface IProductFilters {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sort?: Array<string>;
+  //sortBy?: {
+  //[key: string]: SortOrder;
+  //};
+  categories?: {
+    [key: string]: boolean;
+  };
+  region?: {
+    [key: string]: boolean;
+  };
+  payment?: {
+    [key: string]: boolean;
+  };
+  promotion?: {
+    [key: string]: boolean;
+  };
+}
