@@ -1,37 +1,66 @@
-import {
-  faChevronRight,
-  faSearch,
-  faStar,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import SearchBox from 'components/SearchBox/SearchBox';
+import queryString from 'query-string';
+import { IProductFilters } from 'common/types/product.interface';
 
 const ItemsFilter = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [indexedQuery, setIndexedQuery] = useState<IProductFilters>({});
+  const location = useLocation();
+
+  useEffect(() => {
+    const parsedQuery = queryString.parse(location.search) as IProductFilters;
+    for (const key in parsedQuery) {
+      let newHash = {};
+      if (Array.isArray(parsedQuery[key])) {
+        for (let i = 0; i < parsedQuery[key].length; i++) {
+          const arrayItem: string = parsedQuery[key][i];
+          newHash = { ...newHash, [arrayItem]: true };
+        }
+        parsedQuery[key] = newHash;
+      } else {
+        parsedQuery[key] = { [parsedQuery[key]]: !!parsedQuery[key] };
+      }
+    }
+    setIndexedQuery(parsedQuery);
+  }, [location.search, searchParams]);
+
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const [key, value, isArray] = e.currentTarget.name.split('-');
+
+    const parsedQuery = queryString.parse(location.search) as IProductFilters;
+
+    if (
+      (!isArray && typeof parsedQuery[key] === 'string') ||
+      (isArray && parsedQuery[key] === value)
+    ) {
+      delete parsedQuery[key];
+    } else if (isArray) {
+      if (Array.isArray(parsedQuery[key])) {
+        const valueIndex: number = parsedQuery[key].indexOf(value);
+        if (valueIndex !== -1) {
+          parsedQuery[key].splice(valueIndex, 1);
+        } else {
+          parsedQuery[key].push(value);
+        }
+      } else {
+        parsedQuery[key] = [parsedQuery[key], value];
+      }
+    } else {
+      parsedQuery[key] = value;
+    }
+
+    setSearchParams(queryString.stringify(parsedQuery));
+  };
+
   return (
     <aside className="d-none d-lg-block col-lg-4 col-xl-3 border bg-light">
       <div className="p-md-3 ff-lato-4" id="filters-btns-container">
-        <form>
-          <label className="form-label visually-hidden" htmlFor="s-shop">
-            Search
-          </label>
-          <div className="input-group mb-3 mt-2">
-            <input
-              className="form-control"
-              type="text"
-              name="s-shop"
-              id="s-shop"
-              placeholder="Search"
-            />
-            <button
-              className="input-group-text"
-              id="si-shop"
-              aria-label="search"
-              type="button"
-            >
-              <FontAwesomeIcon icon={faSearch} className="text-darker-4" />
-            </button>
-          </div>
-        </form>
+        <SearchBox />
         <div>
           <div className="row filter">
             <div className="col-md-9">
@@ -42,87 +71,140 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-primary">
-                <a className="text-white" href="/">
-                  All
-                </a>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Appetizers']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Appetizers-true"
+              >
+                Appetizers
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Condiments']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Condiments-true"
+              >
+                Condiments
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Confectionery']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Confectionery-true"
+              >
+                Confectionery
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Convenience foods']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Convenience foods-true"
+              >
+                Convenience foods
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Desserts']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Desserts-true"
+              >
+                Desserts
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Dips, pastes and spreads']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Dips, pastes and spreads-true"
+              >
+                Dips, pastes and spreads
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Dried foods']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Dried foods-true"
+              >
+                Dried foods
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Dumplings']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Dumplings-true"
+              >
+                Dumplings
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Fast food']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Fast food-true"
+              >
+                Fast food
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  indexedQuery?.['categories']?.['Products']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="categories-Products-true"
+              >
+                Products
               </button>
             </li>
             <li>
               <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Appetizers
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Condiments
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Confectionery
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Convenience foods
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Desserts
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Dips, pastes and spreads
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Dried foods
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Dumplings
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Fast food
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-secondary a-disabled" href="/">
-                  Products
-                </a>
-              </button>
-            </li>
-            <li>
-              <button className="sel-none" disabled>
-                <a className="text-decoration-underline a-disabled" href="/">
+                <span className="text-decoration-underline text-secondary">
                   Show more
-                </a>
+                </span>
               </button>
             </li>
           </ul>
@@ -135,16 +217,56 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-none">North America</button>
+              <button
+                className={
+                  indexedQuery?.['region']?.['North America']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="region-North America-true"
+              >
+                North America
+              </button>
             </li>
             <li>
-              <button className="sel-none">United States</button>
+              <button
+                className={
+                  indexedQuery?.['region']?.['United States']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="region-United States-true"
+              >
+                United States
+              </button>
             </li>
             <li>
-              <button className="sel-none">Europe</button>
+              <button
+                className={
+                  indexedQuery?.['region']?.['Europe']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="region-Europe-true"
+              >
+                Europe
+              </button>
             </li>
             <li>
-              <button className="sel-none">Global</button>
+              <button
+                className={
+                  indexedQuery?.['region']?.['Global']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="region-Global-true"
+              >
+                Global
+              </button>
             </li>
           </ul>
         </div>
@@ -191,7 +313,7 @@ const ItemsFilter = () => {
                   placeholder="Max"
                 />
                 <button
-                  className="sel-primary disabled"
+                  className="sel-primary "
                   id="discount-filter"
                   type="button"
                 >
@@ -258,13 +380,43 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-none">In 12 installments</button>
+              <button
+                className={
+                  indexedQuery?.['payment']?.['In 12 installments']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="payment-In 12 installments-true"
+              >
+                In 12 installments
+              </button>
             </li>
             <li>
-              <button className="sel-none">In 6 installments</button>
+              <button
+                className={
+                  indexedQuery?.['payment']?.['In 6 installments']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="payment-In 6 installments-true"
+              >
+                In 6 installments
+              </button>
             </li>
             <li>
-              <button className="sel-none">In cash</button>
+              <button
+                className={
+                  indexedQuery?.['payment']?.['In cash']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="payment-In cash-true"
+              >
+                In cash
+              </button>
             </li>
           </ul>
         </div>
@@ -276,10 +428,30 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-none">Special offer</button>
+              <button
+                className={
+                  indexedQuery?.['promotion']?.['Special offer']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="promotion-Special offer-true"
+              >
+                Special offer
+              </button>
             </li>
             <li>
-              <button className="sel-none">New</button>
+              <button
+                className={
+                  indexedQuery?.['promotion']?.['New']
+                    ? 'sel-primary'
+                    : 'sel-none'
+                }
+                onClick={handleChange}
+                name="promotion-New-true"
+              >
+                New
+              </button>
             </li>
           </ul>
         </div>
@@ -341,11 +513,7 @@ const ItemsFilter = () => {
                   id="pri-to"
                   placeholder="Max"
                 />
-                <button
-                  className="sel-primary disabled"
-                  id="price-filter"
-                  type="button"
-                >
+                <button className="sel-primary" id="price-filter" type="button">
                   <FontAwesomeIcon icon={faChevronRight} />
                 </button>
               </form>
@@ -353,7 +521,10 @@ const ItemsFilter = () => {
           </ul>
         </div>
         <div className="text-center">
-          <button className="btn btn-primary" id="clean-all-filters">
+          <button
+            className="btn btn-primary"
+            onClick={() => setSearchParams('')}
+          >
             Clean all filters
           </button>
         </div>
