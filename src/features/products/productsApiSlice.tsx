@@ -4,7 +4,7 @@ import {
   IProductFiltersResponse,
 } from 'common/types/product.interface';
 
-export const productApiSlice = apiSlice.injectEndpoints({
+export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Product
     ///////////////////////////
@@ -17,4 +17,4 @@ export const productApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useListQuery, useReadByIdQuery } = productApiSlice;
+export const { useListQuery, useReadByIdQuery } = productsApiSlice;
