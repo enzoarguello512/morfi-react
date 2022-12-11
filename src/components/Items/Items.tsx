@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Items = () => {
-  const location = useLocation();
-  const { data, isLoading } = useListQuery(location.search);
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const { data, isLoading, isFetching } = useListQuery(location.search);
 
   useEffect(() => {
     if (!isLoading && data?.products) {
@@ -19,7 +19,7 @@ const Items = () => {
 
   return (
     <section className="col-md-12 col-lg-8 col-xl-9">
-      {isLoading ? (
+      {isLoading && isFetching ? (
         <div>
           <div className="d-flex justify-content-center">
             <div className="spinner-grow text-secondary my-2" role="status">
@@ -27,11 +27,21 @@ const Items = () => {
             </div>
           </div>
         </div>
+      ) : data?.products && data.products.length === 0 ? (
+        <div className="bg-light p-2 border">
+          <h4 className="text-center my-4 mx-4 fw-bold ff-lato-4">
+            Oops... we didn't find anything for this search :(
+          </h4>
+          <h5 className="text-center mx-4 mb-4 ff-lato-4">
+            You can try a more general term or check that it is well written
+          </h5>
+        </div>
       ) : (
         <ul className="list-unstyled">
-          {data.products.map((product: IProduct) => (
-            <ProductPreview product={product} key={product.id} />
-          ))}
+          {data?.products &&
+            data.products.map((product: IProduct) => (
+              <ProductPreview product={product} key={product.id} />
+            ))}
         </ul>
       )}
     </section>
