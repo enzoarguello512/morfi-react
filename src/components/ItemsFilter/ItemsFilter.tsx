@@ -30,16 +30,16 @@ const ItemsFilter = () => {
   }, [location.search, searchParams]);
 
   const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const [key, value, isArray] = e.currentTarget.name.split('-');
+    const [key, value, isCollection] = e.currentTarget.name.split('-');
 
     const parsedQuery = queryString.parse(location.search) as IProductFilters;
 
     if (
-      (!isArray && typeof parsedQuery[key] === 'string') ||
-      (isArray && parsedQuery[key] === value)
+      (!isCollection && typeof parsedQuery[key] === 'string') ||
+      (isCollection && parsedQuery[key] === value)
     ) {
       delete parsedQuery[key];
-    } else if (isArray) {
+    } else if (isCollection) {
       if (Array.isArray(parsedQuery[key])) {
         const valueIndex: number = parsedQuery[key].indexOf(value);
         if (valueIndex !== -1) {

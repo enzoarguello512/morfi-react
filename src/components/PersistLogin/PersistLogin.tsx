@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { getLocalValue } from 'hooks/useLocalStorage';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCurrentToken,
   setCart,
@@ -13,13 +12,13 @@ import LoadingPage from 'components/LoadingPage/LoadingPage';
 import { IUser } from 'common/types/user.interface';
 import { decryptJwt } from 'util/decryptJwt';
 import { ICart } from 'common/types/cart.interface';
-import { useAppDispatch } from 'hooks/preTyped';
+import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
 
 const PersistLogin = () => {
   const [refresh, { isLoading }] = useRefreshMutation();
   const [getCart] = userApiSlice.endpoints.getCart.useLazyQuery();
 
-  const token = useSelector(selectCurrentToken);
+  const token = useAppSelector(selectCurrentToken);
   const persist = getLocalValue('persist');
 
   const isUnitialized = useRef(true);
