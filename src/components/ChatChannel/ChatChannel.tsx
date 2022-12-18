@@ -30,6 +30,7 @@ const ChatChannel = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+
     if (messageText && !isLoading) {
       socket.emit('new message', user.id, messageText);
       setMessageText('');
@@ -41,23 +42,27 @@ const ChatChannel = () => {
 
   useEffect(() => {
     // To prevent duplicate errors with Socket.io
-    if (isUnitialized.current === true) {
+    if (isUnitialized.current === true && messages.length === 0) {
       isUnitialized.current = false;
 
       // Event handlers
       socket.emit('get messages', user.id);
       socket.on('messages', (msgs: Array<IMessage>) => {
-        dispatch(setMessages(msgs));
+        if (messages.length === 0 && loadedMessages.current === false) {
+          dispatch(setMessages(msgs));
+        }
         loadedMessages.current = true;
       });
       socket.on('messages error', (err) => {
+        setLoading(false);
         toast.error(err.message);
       });
       socket.on('new message saved', (msgs: Array<IMessage>) => {
         dispatch(addMessage(msgs));
-        setLoading(false);
       });
     }
+
+    setLoading(false);
 
     // This is responsible for generating a welcome message to the user (only if it's the first time!)
     if (loadedMessages.current && messages.length === 0) {
@@ -75,7 +80,7 @@ const ChatChannel = () => {
   // Box in charge of controlling all messages
   const MessageBox =
     // We wait for the messages to load
-    isUnitialized.current === true || messages.length === 0 ? (
+    isUnitialized.current === true && messages.length === 0 ? (
       <li className="d-flex align-items-center justify-content-center h-100">
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -91,7 +96,7 @@ const ChatChannel = () => {
             key={msg.id}
           >
             <div
-              className={`bg-gradient col-8 rounded mb-3 border border-1 border-dark ${
+              className={`bg-gradient col-md-10 col-lg-9 col-xl-8 rounded mb-3 border border-1 border-dark ${
                 isUser ? 'bg-darker-5' : 'bg-white'
               }`}
             >
@@ -121,7 +126,7 @@ const ChatChannel = () => {
     );
 
   return (
-    <div className="m-5 px-5 bg-light-2">
+    <div className="m-1 m-md-3 m-lg-5 px-1 px-md-3 px-lg-5 bg-light-2">
       <h1 className="text-darker-5 text-center pt-3 mb-3">Message center</h1>
       <div className="text-center">
         Logged in as{' '}
