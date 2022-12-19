@@ -32,6 +32,10 @@ As a novelty, the [back-end section of the application](https://github.com/enzoa
 - [https://morfi-react.vercel.app](https://morfi-react.vercel.app) - Front-end deployment in vercel.
 - [https://node-rest-jwt.onrender.com](https://node-rest-jwt.onrender.com) - Back-end deployment in render (cold start ❄️, so it will be the slower of the two).
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/75096734/190830800-261c9be8-6355-462e-a74a-ffc474dc7233.png" alt="The Morfi SPA" height="300">
+</p>
+
 ## 📦 Main features
 
 - State and request handling using React & RTK Query
@@ -55,6 +59,9 @@ npm install
 **This requires that you have already pre-configured the ".env.development" file. You can find the example in [.env.example.development](https://github.com/enzoarguello512/morfi-react/blob/159b9b61dfd1772f6ae5fb8f70f17104af22a03d/.env.example.development).**
 
 For production mode, you will need the [".env.production"](https://github.com/enzoarguello512/node-rest-jwt/blob/develop/.env.example) file and also to start the server with the results of `npm run build`.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+The page will reload if you make edits. You will also see any lint errors in the console.
 
 ```sh
 npm start
@@ -62,9 +69,17 @@ npm start
 
 ## 🧪 Run tests
 
+Launches the test runner in the interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
 ```sh
 npm run test
 ```
+
+## 📄 Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## 🤝 Contributing
 
