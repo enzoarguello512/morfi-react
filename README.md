@@ -5,7 +5,7 @@
   <h1 align="center">morfi-react</h1>
   <p align="center">🚀 A front-end application built with React, Redux & RTK Query, Bootstrap, Socket.io, Typescript, and JSON Web Tokens. Adapted from the original morfi project. 🍔<p>
   <p align="center">
-    <img alt="Version" src="https://img.shields.io/badge/version-0.1.5-blue.svg?cacheSeconds=2592000" />
+    <img alt="Version" src="https://img.shields.io/badge/version-2.0.0-blue.svg?cacheSeconds=2592000" />
     <a href="https://github.com/enzoarguello512/api-rest-ecommerce#readme" target="_blank">
       <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
     </a>
