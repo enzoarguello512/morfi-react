@@ -34,13 +34,15 @@ As a novelty, the [back-end section of the application](https://github.com/enzoa
 
 ## 📦 Main features
 
+- State and request handling using React & RTK Query
+- Bootstrap and SASS custom styles
 - Session management with JSON Web Tokens (aka "jwt") (authentication, session inactivity, auto-login, token rotation, etc)
 - Query-based filtering of products
 - A socket.io-based chat implementation
 
 ### ⚡ Future features
 
-- Validation with express-validator
+- Create an order that edits product stock
 
 ## 👨‍💻 Install
 
@@ -50,7 +52,9 @@ npm install
 
 ## 🔥 Usage
 
-**This requires that you have already pre-configured the ".env" file. You can find the example in [.env.example](https://github.com/enzoarguello512/node-rest-jwt/blob/develop/.env.example).**
+**This requires that you have already pre-configured the ".env.development" file. You can find the example in [.env.example.development](https://github.com/enzoarguello512/morfi-react/blob/159b9b61dfd1772f6ae5fb8f70f17104af22a03d/.env.example.development).**
+
+For production mode, you will need the [".env.production"](https://github.com/enzoarguello512/node-rest-jwt/blob/develop/.env.example) file and also to start the server with the results of `npm run build`.
 
 ```sh
 npm start
