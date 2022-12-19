@@ -1,7 +1,7 @@
 {
-  "name": "frontend",
+  "name": "morfi-react",
   "version": "0.1.5",
-  "description": "frontend",
+  "description": "🚀 A front-end application built with React, Redux & RTK Query, Bootstrap, Socket.io, Typescript, and JSON Web Tokens. Adapted from the original morfi project. 🍔",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
