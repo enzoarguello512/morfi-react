@@ -1,66 +1,91 @@
-
 <p align="center">
-  <a href="https://morfi.vercel.app/">
+  <a href="https://morfi-react.vercel.app">
     <img src="https://i.imgur.com/cDNjn1M.png" alt="The Morfi logo" height="100">
   </a>
+  <h1 align="center">morfi-react</h1>
+  <p align="center">🚀 A front-end application built with React, Redux & RTK Query, Bootstrap, Socket.io, Typescript, and JSON Web Tokens. Adapted from the original morfi project. 🍔<p>
+  <p align="center">
+    <img alt="Version" src="https://img.shields.io/badge/version-0.1.5-blue.svg?cacheSeconds=2592000" />
+    <a href="https://github.com/enzoarguello512/api-rest-ecommerce#readme" target="_blank">
+      <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+    </a>
+    <a href="https://github.com/enzoarguello512/api-rest-ecommerce/graphs/commit-activity" target="_blank">
+      <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+    </a>
+    <a href="https://github.com/enzoarguello512/api-rest-ecommerce/blob/master/LICENSE" target="_blank">
+      <img alt="License: MIT" src="https://img.shields.io/github/license/enzoarguello512/morfi-react" />
+    </a>
+    <a href="https://twitter.com/enzoarguello512" target="_blank">
+      <img alt="Twitter: enzoarguello512" src="https://img.shields.io/twitter/follow/enzoarguello512.svg?style=social" />
+    </a>
+  </p>
 </p>
 
-# The Morfi (React version)
-A simple website that tries to imitate the behavior of a food franchise with restaurants all over the United States
+Welcome 👋 to the [morfi](https://github.com/enzoarguello512/morfi) frontend app repository (a shortened version made with react), where the code for the store page, user registration, and customer communication can be found.
 
-It is a project only with the intention of learning and improving skills, the entire page is pure fiction and most of the resources used in it are taken from other pages (in the credits section I try to mention all the ones I remember)
+As a novelty, the [back-end section of the application](https://github.com/enzoarguello512/node-rest-jwt) has also been added! 🖥
 
-<strong>Active deployments</strong>
-* [Vercel](https://morfi-react.vercel.app/) (full)
+## ✨ Active deployments
+
+> (Please bear in mind that the site will take a while to load since it's deployed on a free tier, but it will load, just give it some time 😉)
+
+- [https://morfi-react.vercel.app](https://morfi-react.vercel.app) - Front-end deployment in vercel.
+- [https://node-rest-jwt.onrender.com](https://node-rest-jwt.onrender.com) - Back-end deployment in render (cold start ❄️, so it will be the slower of the two).
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/75096734/190830800-261c9be8-6355-462e-a74a-ffc474dc7233.png" alt="The Morfi SPA" height="300">
+  <img src="https://user-images.githubusercontent.com/75096734/190830800-261c9be8-6355-462e-a74a-ffc474dc7233.png" alt="The Morfi SPA" height="300">
 </p>
 
+## 📦 Main features
 
-## Getting Started with Create React App
+- State and request handling using React & RTK Query
+- Bootstrap and SASS custom styles
+- Session management with JSON Web Tokens (aka "jwt") (authentication, session inactivity, auto-login, token rotation, etc)
+- Query-based filtering of products
+- A socket.io-based chat implementation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### ⚡ Future features
 
-## Available Scripts
+- Create an order that edits product stock
 
-In the project directory, you can run:
+## 👨‍💻 Install
 
-### `npm start`
+```sh
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🔥 Usage
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**This requires that you have already pre-configured the ".env.development" file. You can find the example in [.env.example.development](https://github.com/enzoarguello512/morfi-react/blob/159b9b61dfd1772f6ae5fb8f70f17104af22a03d/.env.example.development).**
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
+For production mode, you will need the [".env.production"](https://github.com/enzoarguello512/node-rest-jwt/blob/develop/.env.example) file and also to start the server with the results of `npm run build`.
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+The page will reload if you make edits. You will also see any lint errors in the console.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```sh
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🧪 Run tests
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Launches the test runner in the interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+npm run test
+```
 
-## Learn More
+## 📄 Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/enzoarguello512/api-rest-ecommerce/issues). You can also take a look at the [contributing guide](https://github.com/enzoarguello512/api-rest-ecommerce/blob/master/CONTRIBUTING.md).
+
+## 📝 License
+
+Copyright © 2022 [enzoarguello512](https://github.com/enzoarguello512).<br />
+This project is [MIT](https://github.com/enzoarguello512/api-rest-ecommerce/blob/master/LICENSE) licensed.
