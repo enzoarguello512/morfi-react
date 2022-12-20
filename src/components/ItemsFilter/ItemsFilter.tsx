@@ -278,16 +278,24 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-none">25%</button>
+              <button className="sel-none" disabled>
+                25%
+              </button>
             </li>
             <li>
-              <button className="sel-none">50%</button>
+              <button className="sel-none" disabled>
+                50%
+              </button>
             </li>
             <li>
-              <button className="sel-none">75%</button>
+              <button className="sel-none" disabled>
+                75%
+              </button>
             </li>
             <li>
-              <button className="sel-none">100%</button>
+              <button className="sel-none" disabled>
+                100%
+              </button>
             </li>
             <li>
               <form className="px-1">
@@ -300,6 +308,7 @@ const ItemsFilter = () => {
                   name="dis-from"
                   id="dis-from"
                   placeholder="Min"
+                  disabled
                 />
                 <span> - </span>
                 <label className="visually-hidden" htmlFor="dis-to">
@@ -311,11 +320,13 @@ const ItemsFilter = () => {
                   name="dis-to"
                   id="dis-to"
                   placeholder="Max"
+                  disabled
                 />
                 <button
-                  className="sel-primary "
+                  className="sel-none "
                   id="discount-filter"
                   type="button"
+                  disabled
                 >
                   <FontAwesomeIcon icon={faChevronRight} />
                 </button>
@@ -331,7 +342,7 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-none" data-stars="1">
+              <button className="sel-none" data-stars="1" disabled>
                 <FontAwesomeIcon icon={faStar} />
                 <FontAwesomeIcon icon={farStar} className="ps-1" />
                 <FontAwesomeIcon icon={farStar} className="ps-1" />
@@ -341,7 +352,7 @@ const ItemsFilter = () => {
               </button>
             </li>
             <li>
-              <button className="sel-none" data-stars="2">
+              <button className="sel-none" data-stars="2" disabled>
                 <FontAwesomeIcon icon={faStar} />
                 <FontAwesomeIcon icon={faStar} className="ps-1" />
                 <FontAwesomeIcon icon={farStar} className="ps-1" />
@@ -351,7 +362,7 @@ const ItemsFilter = () => {
               </button>
             </li>
             <li>
-              <button className="sel-none" data-stars="3">
+              <button className="sel-none" data-stars="3" disabled>
                 <FontAwesomeIcon icon={faStar} />
                 <FontAwesomeIcon icon={faStar} className="ps-1" />
                 <FontAwesomeIcon icon={faStar} className="ps-1" />
@@ -361,7 +372,7 @@ const ItemsFilter = () => {
               </button>
             </li>
             <li>
-              <button className="sel-none" data-stars="4">
+              <button className="sel-none" data-stars="4" disabled>
                 <FontAwesomeIcon icon={faStar} />
                 <FontAwesomeIcon icon={faStar} className="ps-1" />
                 <FontAwesomeIcon icon={faStar} className="ps-1" />
@@ -463,10 +474,14 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-none">Free shipping</button>
+              <button className="sel-none" disabled>
+                Free shipping
+              </button>
             </li>
             <li>
-              <button className="sel-none">Withdrawal in person</button>
+              <button className="sel-none" disabled>
+                Withdrawal in person
+              </button>
             </li>
           </ul>
         </div>
@@ -479,16 +494,24 @@ const ItemsFilter = () => {
           </div>
           <ul className="list-unstyled">
             <li>
-              <button className="sel-none">$0 - $10</button>
+              <button className="sel-none" disabled>
+                $0 - $10
+              </button>
             </li>
             <li>
-              <button className="sel-none">$10 - $50</button>
+              <button className="sel-none" disabled>
+                $10 - $50
+              </button>
             </li>
             <li>
-              <button className="sel-none">$50 - $100</button>
+              <button className="sel-none" disabled>
+                $50 - $100
+              </button>
             </li>
             <li>
-              <button className="sel-none">$100+</button>
+              <button className="sel-none" disabled>
+                $100+
+              </button>
             </li>
             <li>
               <form className="px-1">
@@ -501,6 +524,7 @@ const ItemsFilter = () => {
                   name="pri-from"
                   id="pri-from"
                   placeholder="Min"
+                  disabled
                 />
                 <span> - </span>
                 <label className="visually-hidden" htmlFor="pri-to">
@@ -512,8 +536,14 @@ const ItemsFilter = () => {
                   name="pri-to"
                   id="pri-to"
                   placeholder="Max"
+                  disabled
                 />
-                <button className="sel-primary" id="price-filter" type="button">
+                <button
+                  className="sel-none"
+                  id="price-filter"
+                  type="button"
+                  disabled
+                >
                   <FontAwesomeIcon icon={faChevronRight} />
                 </button>
               </form>
