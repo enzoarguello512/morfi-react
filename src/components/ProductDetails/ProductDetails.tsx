@@ -6,9 +6,7 @@ import { useMaybeAddToCartMutation } from 'features/user/userApiSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from 'hooks/preTyped';
 import { IUser } from 'common/types/user.interface';
-import { IProduct } from 'common/types/product.interface';
 import { ICart } from 'common/types/cart.interface';
-import { selectProductById } from 'features/products/productsSlice';
 
 const ProductDetails = () => {
   const location = useLocation();
