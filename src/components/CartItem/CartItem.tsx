@@ -24,6 +24,7 @@ const CartItem = ({ productData }) => {
   const [updateProductQty, { isLoading: isProductLoading }] =
     useUpdateProductQtyMutation();
 
+  // eslint-disable-next-line
   const increaseQuantity = useCallback(
     debounce(async (quantity: number): Promise<void> => {
       try {
@@ -96,7 +97,16 @@ const CartItem = ({ productData }) => {
             className="btn btn-outline-dark bg-gradient"
             onClick={handleRemove}
           >
-            <FontAwesomeIcon icon={faTrashCan} />
+            {isLoading ? (
+              <div
+                className="spinner-border spinner-border-sm text-danger"
+                role="status"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : (
+              <FontAwesomeIcon icon={faTrashCan} />
+            )}
           </button>
         </div>
         <div className="col-12 col-md-6 col-xl-7 overflow-hidden">
