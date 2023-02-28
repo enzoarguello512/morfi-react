@@ -26,6 +26,14 @@ const Items = () => {
               <span className="visually-hidden">Loading...</span>
             </div>
           </div>
+          <h4 className="text-center my-3 mx-4 fw-bold ff-lato-4">
+            The server is loading...
+          </h4>
+          <h5 className="text-center mx-4 ff-lato-4">
+            If after a few minutes it does not load (it is a free tier, it can
+            take up to 5 minutes), it is possible that the server in charge of
+            the backend is down :(
+          </h5>
         </div>
       ) : data?.products && data.products.length === 0 ? (
         <div className="bg-light p-2 border">
